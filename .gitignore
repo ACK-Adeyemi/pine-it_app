@@ -1,0 +1,16 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!*.code-workspace
+
+# Local-only
+*.local
+.env
+
+# Agent-local governance (not part of the published repo)
+.clinerules/
+
+# Legacy staging folder — superseded by the /docs layout (see README)
+pine-it_app_v1/
