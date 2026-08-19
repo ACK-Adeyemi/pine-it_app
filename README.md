@@ -82,7 +82,6 @@ pine-it_app/
 │       ├── 0002-facet-filter-engine-and-source-registry.md
 │       └── 0003-provider-agnostic-data-strategy.md
 ├── .clinerules/             ← agent governance (not published)
-└── pine-it_app_v1/          ← legacy empty staging folder (superseded by /docs layout, ignored)
 ```
 
 ## More documentation

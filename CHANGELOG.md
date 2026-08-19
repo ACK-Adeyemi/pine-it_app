@@ -19,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   - "Post an ad" form persisted to `localStorage`, appears live as **Native**; "My activity" panel lists posted ads and lead requests; demo reset.
   - Pine-green, modern marketplace UI, responsive with mobile filter panel.
 - **Root-level `README.md`** with local-run and GitHub Pages deployment instructions.
-- Git repository initialised (`main` branch); `.gitignore` for OS/editor clutter and the legacy `pine-it_app_v1/` staging folder.
+- Git repository initialised (`main` branch); `.gitignore` for OS/editor clutter.
 
 ### Notes for reviewers
 
