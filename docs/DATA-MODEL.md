@@ -58,7 +58,7 @@ Facets are **declarative and category-owned** (ADR-0002); a category's facet sch
 | facet key | label | type | options / step |
 |---|---|---|---|
 | `price` | Price | range | £0–£50,000 step 500 |
-| `year` | Year | range | 2007–2024 step 1 |
+| `year` | Year | range | 1910–current year step 1 |
 | `mileage` | Mileage | range | 0–180,000 miles step 5,000 |
 | `make` | Make | multi | all makes (seeded) |
 | `fuel` | Fuel | multi | Petrol, Diesel, Hybrid, Electric |
@@ -74,7 +74,7 @@ Remaining value: later general-marketplace categories declare their *own* schema
 ## 5. Seed data strategy (PoC)
 
 - **Deterministic generator** in `index.html`: seeded PRNG (`mulberry32(20260819)`) — same dataset on every load/reviewer.
-- **~700 listings**, UK-plausible: 25 make/model families, 2007–2024, £1,500–£48,000, 5–180k miles, fuel/gearbox/body/colour distributions, realistic postcode areas across 15 UK cities.
+- **~700 listings**, UK-plausible: 25 make/model families, 1910–current year (modern-heavy mix, incl. classic-car pocket), £500–£48,000, 5–180k miles, fuel/gearbox/body/colour distributions, realistic postcode areas across 15 UK cities.
 - **Source mix:** Native 40% · Facebook 20% · Gumtree 18% · AutoTrader 14% · motors.co.uk 8%. Broker mode assigned per rules in section 2 (FB mostly brokered, etc.).
 - User-generated rows (posted ads, lead intents) merge with seed data at render time; write to `localStorage` (`pineit_my_ads`, `pineit_leads`).
 

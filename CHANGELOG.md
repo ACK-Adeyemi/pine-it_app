@@ -3,6 +3,17 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] — 2026-08-19
+
+### Added
+
+- **PoC Revision 1** (per `.clinerules/pia-v1-core-rules.md`):
+  - **Year/Age filter widened to 1910 → current year** (dynamic) in the facet panel and the "Post an ad" form.
+  - **Widened seed dataset** — modern-heavy year mix from 1910 (classic-car pocket) to the current year, with age-safe price/mileage generation.
+  - **Active-filter chip row** above the results — every filter (including the search text) is a removable chip (**✕**) with a working **Clear all** button.
+  - **Motors.co.uk-style left filter pane** — all filter groups (Platform, Location-radius, ranges, multi-select) are collapsible accordions with active-count badges; groups **auto-collapse while a search is active** and re-expand when cleared.
+  - **Cazoo-aligned mobile layout** — filter panel becomes a bottom sheet with a "Show N results" apply bar, compact 2-column result cards, a horizontally scrollable chip row, and an active-filter count badge on the filter toggle.
+
 ## [0.1.0] — 2026-08-19
 
 ### Added

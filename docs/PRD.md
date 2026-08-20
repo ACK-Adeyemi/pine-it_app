@@ -1,9 +1,9 @@
-# Product Requirements — Pine It v0.1.0 (PoC)
+# Product Requirements — Pine It v0.1.1 (PoC Revision 1)
 
 > **One sentence:** Pine It is a UK car marketplace where one search shows every car from every platform — with the strongest filter engine on the market, dirt-cheap zero-fee selling, and attribution-first harvesting of Gumtree, Facebook Marketplace, AutoTrader and motors.co.uk.
 
 - **Type:** PoC product requirements & acceptance criteria
-- **Version:** v0.1.0 — 2026-08-19
+- **Version:** v0.1.1 (PoC Revision 1) — 2026-08-19
 - **Build target:** single-file static web app (`docs/index.html`) — see ADR-0001
 
 ---
@@ -49,7 +49,7 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 
 - [x] **Combined** full-text search + facet filtering (one query applies to the whole collection)
 - [x] **Multi-select facets** (checkbox groups: make, fuel, gearbox, body, colour, condition, platform…)
-- [x] **Range facets** (price, year, mileage via min/max inputs)
+- [x] **Range facets** (price, year, mileage via min/max inputs; **year spans 1910 → current year**)
 - [x] **Postcode distance radius** (10/25/50/100/250 miles, distance listed + sortable)
 - [x] **Live per-facet result counts** (each checked option shows exactly the count it yields)
 - [x] **Instant re-render** on any change (no submit, no reload)
@@ -67,6 +67,10 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 5. **Lead flow** ("Request via Pine It") completes with a confirmation, persists, and shows under "My activity".
 6. Filters survive reload via URL hash; sharing a URL restores the exact view.
 7. UI is responsive (filters accessible on mobile) and keyboard-navigable modals close on `Esc`.
+8. The **Year filter** ranges **1910 → current year** in both the facet panel and the "Post an ad" form; the seeded catalogue includes cars old enough to make the range meaningful.
+9. Active filters appear as a **chip row above the results**; each chip removes its filter via **✕** (the search text included), and **Clear all** empties the whole row.
+10. The left filter pane uses **motors.co.uk-style collapsible groups** with multi-select options; groups **auto-collapse while a search is active** and re-expand when the search is cleared.
+11. On mobile the filter panel slides up as a **Cazoo-style bottom sheet** with a "Show N results" apply bar; results use a compact 2-column card grid.
 
 ## 6. Demo script (~3 minutes) — the hero moment
 
