@@ -27,6 +27,7 @@ a{color:inherit}
 .search-wrap{flex:1;position:relative;max-width:560px;min-width:160px}
 .search-wrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--ink-soft)}
 #searchInput{width:100%;border:1px solid var(--line);border-radius:999px;padding:10px 16px 10px 40px;background:var(--surface);outline:none;transition:border-color .15s,box-shadow .15s}
+#searchInput::placeholder{color:var(--ink-soft);opacity:1}
 #searchInput:focus{border-color:var(--pine);box-shadow:0 0 0 3px var(--pine-light)}
 .header-actions{display:flex;gap:10px;align-items:center;margin-left:auto}
 
@@ -215,7 +216,7 @@ body.no-scroll{overflow:hidden}
     </a>
     <div class="search-wrap">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-      <input id="searchInput" type="search" placeholder="Search make, model or keyword… e.g. Qashqai petrol — separate keywords with a comma, e.g. \'Qashqai, petrol\'" aria-label="Search listings" autocomplete="off">
+      <input id="searchInput" type="search" placeholder="Search make, model or keyword… e.g. Qashqai, petrol" aria-label="Search listings" autocomplete="off">
     </div>
     <div class="header-actions">
       <button class="btn ghost small" id="btnActivity" type="button">My activity<span id="activityCount"></span></button>
