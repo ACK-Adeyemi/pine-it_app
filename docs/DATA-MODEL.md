@@ -60,6 +60,11 @@ Facets are **declarative and category-owned** (ADR-0002); a category's facet sch
 | `price` | Price | range | £0–£50,000 step 500 |
 | `year` | Year | range | 1910–current year step 1 |
 | `mileage` | Mileage | range | 0–180,000 miles step 5,000 |
+| `engine`  | Engine size (L) | range | 0–4 step 0.1 |
+| `doors`   | Doors | multi | 2, 3, 4, 5 |
+| `attrs.*` | Motor.co.uk-style facet set | buckets/multi/toggle | see ADR-0004 (buckets carry units in labels) |
+
+_Extended attribute schema on every listing (`attrs`):_ `seats, bhp, drivetrain, tax, insr, mpg, co2, evR, evMin, leased, bwarr, towB, towU, features[], rate, keys, mot, ulez, imported, cat, usage, dRating, dType, partEx, images, reduced, sold` — deterministic seeded demo data correlated with fuel/body/age (see PRODUCTION-READINESS; real source = DVLA/vehicle-data partners).
 | `make` | Make | multi | all makes (seeded) |
 | `fuel` | Fuel | multi | Petrol, Diesel, Hybrid, Electric |
 | `gearbox` | Gearbox | multi | Manual, Automatic |

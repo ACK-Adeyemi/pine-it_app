@@ -1,4 +1,4 @@
-# Pine It — v0.1.1 PoC (Revision 1)
+# Pine It — v0.2.0 PoC (Revision 2)
 
 > **Pine It** — *"sticky notes for the car market."* A marketplace with the strongest filter engine on the market: one search, every car, every platform.
 
@@ -9,7 +9,7 @@ Pine It is a UK-focused, cars-first marketplace exploring a better alternative t
 - **Cheap, low-barrier selling** — post an ad in under a minute, no listing fees (unlike AutoTrader).
 - **One feed, every platform** — harvests car ads from other platforms (Gumtree, Facebook Marketplace, AutoTrader, motors.co.uk) and displays them mixed into a single searchable feed with clear source attribution, affiliate-ready outbound links, and a lead/broker path where sellers aren't directly reachable.
 
-This repository contains the **v0.1.1 proof-of-concept (PoC Revision 1)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
+This repository contains the **v0.2.0 proof-of-concept (PoC Revision 2)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
 
 ---
 
@@ -24,7 +24,10 @@ https://<your-user>.github.io/<your-repo>/
 ## PoC feature set
 
 - **Browse** — 700+ seeded, UK-plausible car listings mixed from 5 sources: Native, Gumtree, Facebook Marketplace, AutoTrader, motors.co.uk.
-- **The filter engine (hero feature)** — full-text search **combined** with faceted filtering: price/year/mileage ranges (year spans **1910 → current year**), make, fuel, gearbox, body, colour, condition, multi-select everywhere, live result counts per facet, postcode **distance radius**, and instant re-render.
+- **The filter engine (hero feature)** — full-text search **combined** with faceted filtering: price/year/mileage/engine-size ranges, make, fuel, gearbox, body, colour, condition, **doors**, multi-select everywhere, live result counts per facet, postcode **distance radius**, and instant re-render.
+- **Full motor.co.uk-style filter set** — ~24 extra filters grouped under **Running costs · Performance · EV & hybrid · Features · Safety & condition · Vehicle history · Vehicle usage · Dealer · Advert options**: annual tax, insurance group, fuel economy, CO₂, power/BHP, drivetrain, towing (braked/unbraked), EV range, fast-charge, leased battery, battery warranty, CarPlay/Bluetooth/Leather/Wheelchair, safety rating, keys, MOT, ULEZ, seats, imported, damage-category exclusion, vehicle usage exclusions, dealer rating/type, part-exchange, sold status, 2+ images, reduced and recently added.
+- **Sensible filter controls** — raw inputs only where the value+unit are clear (price/mileage/year); tick-box buckets and multi/toggles everywhere else, with units pinned in labels — see **ADR-0004**.
+- **Smart keyword search** — type multiple keywords and separate them with a **comma** to create removable keyword chips (e.g. `Qashqai, petrol`); listings must match **all** terms.
 - **Motors.co.uk-style filter UX** — collapsible facet groups (multi-select everywhere); groups **auto-collapse while you search** and re-expand when cleared; each header shows how many options are active.
 - **Active-filter chip row** — every active filter (including your search text) sits above the results as a removable chip (**✕**), plus a one-tap **Clear all**.
 - **Cazoo-aligned mobile layout** — the filter panel slides up as a bottom sheet with a **"Show N results"** apply bar; results render as a compact 2-column grid with a horizontally scrollable chip row.
@@ -98,4 +101,4 @@ pine-it_app/
 
 ## Status
 
-**v0.1.1 (PoC · Revision 1)** — see [`CHANGELOG.md`](CHANGELOG.md).
+**v0.2.0 (PoC · Revision 2)** — see [`CHANGELOG.md`](CHANGELOG.md).

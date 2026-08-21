@@ -17,6 +17,7 @@
 | 7 | **Persistence & export/import** | `localStorage` + JSON contract (see DATA-MODEL §6); both read/write lossless | MOCK | Selected provider + `exportDataset()/importDataset()` equivalents (ADR-0003, ADR-0004 pending) |
 | 8 | **Geolocation / radius** | Postcode hashed to a deterministic pseudo-co-ordinate in the UK bbox (haversine distance) | MOCK | Real postcode→lat/lng geocoder + radius search (server-side for v1 volumes) |
 | 9 | **Images / photos** | Inline SVG placeholders per make/colour | MOCK | Real image CDN + upload pipeline; moderation |
+| 10 | **Extended filter attributes** (seats, ULEZ, running costs, drivetrain, BHP, EV/hybrid, towing, features, safety, keys, MOT, history, usage, dealer, advert options) | Deterministic seeded `attrs` on all listings (correlated with fuel/body/age) | MOCK | Real DVLA / vehicle-data provider and dealer metadata feeds; unit config per ADR-0004 |
 | 10 | **Search backend** | Client-side `Array.filter` over facets | REAL (for scale=700) | Facet-capable search tier (Elasticsearch/Solr/Typesense) when listings > ~10k |
 | 11 | **Hosting / delivery** | GitHub Pages from `/docs`, zero build static | REAL | Real CDN (Cloudflare/Azure CDN), app aliases, https |
 | 12 | **Analytics** | none (console logging only) | NONE | Privacy-first web analytics (no cross-site) |
@@ -41,4 +42,4 @@
 
 ---
 
-*Companion docs:* `PRD.md` · `DATA-MODEL.md` · `docs/adr/0001–0003`
+*Companion docs:* `PRD.md` · `DATA-MODEL.md` · `docs/adr/0001–0004`

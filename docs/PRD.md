@@ -1,9 +1,9 @@
-# Product Requirements — Pine It v0.1.1 (PoC Revision 1)
+# Product Requirements — Pine It v0.2.0 (PoC Revision 2)
 
 > **One sentence:** Pine It is a UK car marketplace where one search shows every car from every platform — with the strongest filter engine on the market, dirt-cheap zero-fee selling, and attribution-first harvesting of Gumtree, Facebook Marketplace, AutoTrader and motors.co.uk.
 
 - **Type:** PoC product requirements & acceptance criteria
-- **Version:** v0.1.1 (PoC Revision 1) — 2026-08-19
+- **Version:** v0.2.0 (PoC Revision 2) — 2026-08-19
 - **Build target:** single-file static web app (`docs/index.html`) — see ADR-0001
 
 ---
@@ -72,6 +72,14 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 10. The left filter pane uses **motors.co.uk-style collapsible groups** with multi-select options; groups **auto-collapse while a search is active** and re-expand when the search is cleared.
 11. On mobile the filter panel slides up as a **Cazoo-style bottom sheet** with a "Show N results" apply bar; results use a compact 2-column card grid.
 
+**PoC Revision 2 additions** (per `.clinerules/pia-v1-core-rules.md`):
+
+12. The search bar is a **smart multi-keyword** field — a comma splits input into removable **keyword chips** (e.g. `Qashqai, petrol`), each chip clears independently, and results must match **all** terms.
+13. The facet set is extended with **Engine size (L)** (range) and **Doors** (multi-select); further motor.co.uk-style filters are declarative data additions (ADR-0002).
+14. The full **motor.co.uk-style filter set** is present, visually grouped under parent sections **Running costs · Performance · EV & hybrid · Features · Safety & condition · Vehicle history · Vehicle usage · Dealer · Advert options** (the last holding sold status, 2+ images, reduced, recently-added).
+15. Every numeric filter uses the control appropriate to it (per **ADR-0004**): raw min/max input only where value+unit are unambiguous (e.g. price/mileage/year), tick-box buckets elsewhere (tax, insurance group, MPG, CO₂, BHP, towing, EV range, fast-charge, seats, recently added), and multi/toggle for categorical/state fields (drivetrain, features, MOT, ULEZ, usage, damage category, dealer, part-ex, sold/multi-image/reduced). Units are pinned in labels.
+16. New filters demonstrably narrow results to overlapping, non-empty sets, and combine correctly with keyword search and existing facets.
+
 ## 6. Demo script (~3 minutes) — the hero moment
 
 1. **0:00** Land. Show the one feed: a wall of cars wearing different platform badges. *"Every car on the internet, one room."*
@@ -107,4 +115,4 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 
 ---
 
-*Companion docs:* `DATA-MODEL.md` · `PoC-PRODUCTION-READINESS.md` · `docs/adr/0001–0003`
+*Companion docs:* `DATA-MODEL.md` · `PoC-PRODUCTION-READINESS.md` · `docs/adr/0001–0004`

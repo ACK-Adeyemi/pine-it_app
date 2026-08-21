@@ -3,6 +3,17 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] — 2026-08-19
+
+### Added
+
+- **PoC Revision 2** (per `.clinerules/pia-v1-core-rules.md`):
+  - **Smart multi-keyword search** — the search bar now splits on commas into separate, removable **keyword chips** (e.g. `Qashqai, petrol`); results match **all** terms (AND). Rendered per-term in the active-filter chip row.
+  - **Missing filters added** — **Engine size (L)** (range) and **Doors** (multi-select), plus the keyword search text now indexes engine/door data.
+  - **Full motor.co.uk-style filter set** — ~24 new filters covering **Running costs** (annual tax, insurance group, fuel economy, CO₂), **Performance** (power/BHP, drivetrain, towing braked/unbraked), **EV & hybrid** (range, fast-charge, leased battery, battery warranty), **Features** (CarPlay, Bluetooth, Leather, Wheelchair), **Safety & condition** (safety rating, keys, MOT, ULEZ, seats), **Vehicle history** (imported, exclude Cat N/S/C/D), **Vehicle usage** (exclude ex-hire/fleet, ex-demo), **Dealer** (rating, type, part-exchange) and **Advert options** (sold status, 2+ images, reduced, recently added) — rendered under motors.co.uk-style grouped parent sections.
+  - **Per-field filter controls + units** decided in **ADR-0004** (raw min/max inputs only where the value & unit are unambiguous; tick-box buckets elsewhere; multi/toggle for categorical/state fields), replacing the earlier all-range approach.
+  - Seed listing model extended with deterministic `attrs` for every new field (correlated with fuel/body/age); filter engine (`attrMatch`) handles buckets, multi, array-features and flag semantics.
+
 ## [0.1.1] — 2026-08-19
 
 ### Added
