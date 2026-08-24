@@ -47,7 +47,7 @@ Apply one of three control types per field, chosen by "can the typical buyer nam
 | Has MOT | toggle | — | Yes / No |
 | ULEZ compliant | toggle | — | Yes / No |
 | Imported | toggle | — | Yes / No |
-| Damage category | toggle | — | "exclude Cat N/S/C/D" |
+| Damage category | multi | — | No damage / Cat N / Cat S / Cat C / Cat D |
 | Vehicle usage | toggles | — | Not ex-hire · Not ex-fleet · Ex-demo only |
 | Dealer rating | multi | ★ stars | 5★ / 4★+ / 3★+ |
 | Dealer type | multi | — | Private / Independent / Franchise / Specialist |
