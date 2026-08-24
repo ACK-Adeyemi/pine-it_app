@@ -3,6 +3,14 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] — 2026-08-24
+
+### Fixed
+
+- **PoC Revision 3** (per `.clinerules/pia-v1-core-rules.md`):
+  - **Per-chip ✕ removal now works** — the chip-remove delegate read the filter type from `d.type`, but the button declares it as `data-chip` (i.e. `dataset.chip`), so `d.type` was undefined and no `removeChip` branch matched. It now reads `d.chip`. Range, set (multi-select), keyword and radius chips each clear independently; **Clear all** is unchanged.
+  - **Year chip no longer shows thousands separators** — a range label like `2001 – 2003` was rendered as `2,001 – 2,003` because `boundLabel()` ran the year through `fmtNum()` (`toLocaleString('en-GB')`). `boundLabel` now formats year bounds as plain integers.
+
 ## [0.2.0] — 2026-08-19
 
 ### Added

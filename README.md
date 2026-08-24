@@ -1,4 +1,4 @@
-# Pine It — v0.2.0 PoC (Revision 2)
+# Pine It — v0.2.1 PoC (Revision 3)
 
 > **Pine It** — *"sticky notes for the car market."* A marketplace with the strongest filter engine on the market: one search, every car, every platform.
 
@@ -9,7 +9,7 @@ Pine It is a UK-focused, cars-first marketplace exploring a better alternative t
 - **Cheap, low-barrier selling** — post an ad in under a minute, no listing fees (unlike AutoTrader).
 - **One feed, every platform** — harvests car ads from other platforms (Gumtree, Facebook Marketplace, AutoTrader, motors.co.uk) and displays them mixed into a single searchable feed with clear source attribution, affiliate-ready outbound links, and a lead/broker path where sellers aren't directly reachable.
 
-This repository contains the **v0.2.0 proof-of-concept (PoC Revision 2)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
+This repository contains the **v0.2.1 proof-of-concept (PoC Revision 3)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
 
 ---
 
@@ -101,4 +101,4 @@ pine-it_app/
 
 ## Status
 
-**v0.2.0 (PoC · Revision 2)** — see [`CHANGELOG.md`](CHANGELOG.md).
+**v0.2.1 (PoC · Revision 3)** — see [`CHANGELOG.md`](CHANGELOG.md).

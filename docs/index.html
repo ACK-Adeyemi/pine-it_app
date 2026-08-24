@@ -203,7 +203,7 @@ body.no-scroll{overflow:hidden}
 </style>
 </head>
 <body>
-<div class="demo-strip">v0.2.0 PoC · Revision 2 — demo data. Imported listings are explanatory mocks; see docs/PoC-PRODUCTION-READINESS.md</div>
+<div class="demo-strip">v0.2.1 PoC · Revision 3 — demo data. Imported listings are explanatory mocks; see docs/PoC-PRODUCTION-READINESS.md</div>
 <header id="topbar">
   <div class="topbar-inner">
     <button class="ico-btn" id="btnFilterToggle" aria-label="Open filters" title="Filters">
@@ -278,7 +278,7 @@ body.no-scroll{overflow:hidden}
 </div>
 
 <footer class="app-footer">
-  Pine It v0.2.0 PoC · Revision 2 · one search, every car, every platform<br>
+  Pine It v0.2.1 PoC · Revision 3 · one search, every car, every platform<br>
   <span class="fine">Demo data only — imported listings are mocked for concept validation. Images are placeholders. Built as a single static file for GitHub Pages.</span>
 </footer>
 
@@ -826,6 +826,7 @@ function chipX(text,type,key,value){
 }
 function boundLabel(k,v){
   if(k==='price') return '£'+(v[0]==null?'0':fmtNum(v[0]))+' – £'+(v[1]==null?'max':fmtNum(v[1]));
+  if(k==='year') return (v[0]==null?'min':v[0])+' – '+(v[1]==null?'max':v[1]);
   return (v[0]==null?'min':fmtNum(v[0]))+' – '+(v[1]==null?'max':fmtNum(v[1]));
 }
 function renderChips(){
@@ -937,7 +938,7 @@ function onDocClick(e){
   const cl=e.target.closest('[data-close]');
   if(cl){ closeAll(); return; }
   const ck=e.target.closest('[data-chip]');
-  if(ck){ const d=ck.dataset; removeChip(d.type,d.key,d.value); return; }
+  if(ck){ const d=ck.dataset; removeChip(d.chip,d.key,d.value); return; }
   const src=e.target.closest('[data-srcq]');
   if(src){ applySourceQuick(src.dataset.srcq); return; }
   const lead=e.target.closest('[data-lead]');

@@ -1,9 +1,9 @@
-# Product Requirements — Pine It v0.2.0 (PoC Revision 2)
+# Product Requirements — Pine It v0.2.1 (PoC Revision 3)
 
 > **One sentence:** Pine It is a UK car marketplace where one search shows every car from every platform — with the strongest filter engine on the market, dirt-cheap zero-fee selling, and attribution-first harvesting of Gumtree, Facebook Marketplace, AutoTrader and motors.co.uk.
 
 - **Type:** PoC product requirements & acceptance criteria
-- **Version:** v0.2.0 (PoC Revision 2) — 2026-08-19
+- **Version:** v0.2.1 (PoC Revision 3) — 2026-08-24
 - **Build target:** single-file static web app (`docs/index.html`) — see ADR-0001
 
 ---
@@ -79,6 +79,11 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 14. The full **motor.co.uk-style filter set** is present, visually grouped under parent sections **Running costs · Performance · EV & hybrid · Features · Safety & condition · Vehicle history · Vehicle usage · Dealer · Advert options** (the last holding sold status, 2+ images, reduced, recently-added).
 15. Every numeric filter uses the control appropriate to it (per **ADR-0004**): raw min/max input only where value+unit are unambiguous (e.g. price/mileage/year), tick-box buckets elsewhere (tax, insurance group, MPG, CO₂, BHP, towing, EV range, fast-charge, seats, recently added), and multi/toggle for categorical/state fields (drivetrain, features, MOT, ULEZ, usage, damage category, dealer, part-ex, sold/multi-image/reduced). Units are pinned in labels.
 16. New filters demonstrably narrow results to overlapping, non-empty sets, and combine correctly with keyword search and existing facets.
+
+**PoC Revision 3 additions** (per `.clinerules/pia-v1-core-rules.md`):
+
+17. Every chip's **✕** clears **only that filter** — individually, for range (price/year/mileage/engine), set (multi-select), keyword, and radius chips — while the row's **Clear all** still resets everything.
+18. The Year chip label renders without thousands separators (e.g. `Year: 2001 – 2003`, never `Year: 2,001 – 2,003`); price/mileage keep their formatted separators.
 
 ## 6. Demo script (~3 minutes) — the hero moment
 
