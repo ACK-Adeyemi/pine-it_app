@@ -58,9 +58,21 @@ a{color:inherit}
 .filter-group.closed .f-body{display:none}
 .filters-foot{display:none}
 .filter-section{margin:14px 0 2px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--pine-700);display:flex;align-items:center}
-.filters-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.filters-head{margin-bottom:0}
+.filters-head-row{display:flex;justify-content:space-between;align-items:center}
 .filters-head h2{margin:0;font-size:16px;letter-spacing:-.01em}
-.filters-body{display:flex;flex-direction:column;gap:16px;max-height:calc(100vh - 140px);overflow:auto;padding-right:3px}
+.filters-actions{display:flex;align-items:center;gap:6px}
+.filter-tools{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:7px}
+.f-tool{background:none;border:0;cursor:pointer;color:var(--pine);font-weight:700;font-size:12px;padding:4px 10px;border-radius:8px;display:inline-flex;align-items:center;gap:4px}
+.f-tool:hover{background:var(--pine-light);color:var(--pine-700)}
+.f-tool .ico{font-size:12px;line-height:1}
+.filter-search{position:relative;margin-top:9px}
+#filterSearch{width:100%;border:1px solid var(--line);border-radius:9px;padding:8px 30px 8px 10px;background:var(--surface);outline:none}
+#filterSearch:focus{border-color:var(--pine);box-shadow:0 0 0 3px var(--pine-light)}
+#filterSearchClear{position:absolute;right:7px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--ink-soft);cursor:pointer;font-size:14px;line-height:1;padding:2px 5px;border-radius:6px;display:none}
+#filterSearchClear:hover{color:var(--danger)}
+mark{background:#ffe9a8;color:var(--ink);border-radius:3px;padding:0 2px}
+.filters-body{display:flex;flex-direction:column;gap:16px;max-height:calc(100vh - 200px);overflow:auto;padding-right:3px}
 .filter-group{border-top:1px solid var(--line);padding-top:14px}
 .filter-group h3{margin:0 0 9px;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft)}
 .option{display:flex;align-items:center;gap:9px;padding:5px 2px;border-radius:8px;cursor:pointer;font-size:14px;border:0;background:none;width:100%;text-align:left}
@@ -227,8 +239,23 @@ body.no-scroll{overflow:hidden}
 
 <div class="app">
   <aside class="filters" id="filters" aria-label="Filters">
-    <div class="filters-head"><h2>Refine</h2><button class="ico-btn" id="btnClearAll" title="Clear all filters" aria-label="Clear all filters">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+    <div class="filters-head">
+      <div class="filters-head-row">
+        <h2>Filter Options</h2>
+        <div class="filters-actions">
+          <button class="ico-btn" id="btnClearAll" title="Clear all filters" aria-label="Clear all filters">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="filter-tools">
+        <button type="button" class="f-tool" id="btnCollapseAll" title="Collapse every filter section"><span class="ico">▾▾</span>Collapse all</button>
+        <button type="button" class="f-tool" id="btnExpandAll" title="Expand every filter section"><span class="ico">▴▴</span>Expand all</button>
+      </div>
+      <div class="filter-search">
+        <input id="filterSearch" type="text" placeholder="Search filter options…" aria-label="Search filter options" autocomplete="off" spellcheck="false">
+        <button type="button" id="filterSearchClear" class="ico-btn" aria-label="Clear filter search" title="Clear filter search">✕</button>
+      </div>
     </div>
     <div class="filters-body">
       <div class="filter-group" data-group="location">
@@ -258,12 +285,12 @@ body.no-scroll{overflow:hidden}
       <div class="sort-wrap"><label for="sortSelect">Sort</label>
         <select id="sortSelect" aria-label="Sort results">
           <option value="featured">Featured</option>
-          <option value="price-asc">Price: low to high</option>
-          <option value="price-desc">Price: high to low</option>
-          <option value="year-desc">Newest year</option>
-          <option value="mileage-asc">Lowest mileage</option>
-          <option value="distance-asc">Nearest to me</option>
+          <option value="price">Price</option>
+          <option value="year">Year</option>
+          <option value="mileage">Mileage</option>
+          <option value="distance">Distance</option>
         </select>
+        <button type="button" id="sortDir" class="ico-btn" title="Toggle sort direction" aria-label="Toggle sort direction">▲</button>
       </div>
       <div class="chips" id="chipRow" aria-label="Active filters"></div>
     </div>
@@ -278,7 +305,7 @@ body.no-scroll{overflow:hidden}
 </div>
 
 <footer class="app-footer">
-  Pine It v0.2.1 PoC · Revision 3 · one search, every car, every platform<br>
+  Pine It v0.2.2 PoC · Revision 4 · one search, every car, every platform<br>
   <span class="fine">Demo data only — imported listings are mocked for concept validation. Images are placeholders. Built as a single static file for GitHub Pages.</span>
 </footer>
 
@@ -359,7 +386,7 @@ body.no-scroll{overflow:hidden}
 <script>
 'use strict';
 /* =========================================================
-   Pine It v0.2.0 PoC — single-file marketplace demo
+   Pine It v0.2.2 PoC — single-file marketplace demo
    Docs: PRD.md · DATA-MODEL.md · PoC-PRODUCTION-READINESS.md
          adr/0001-0004
    ========================================================= */
@@ -546,9 +573,10 @@ const state = {
     make:new Set(), fuel:new Set(), gearbox:new Set(), body:new Set(),
     colour:new Set(), condition:new Set(), source:new Set(), doors:new Set()
   },
-  radius:0, postcode:'', sort:'featured',
+  radius:0, postcode:'', sort:'featured', sortDir:'asc', filterQ:'',
   collapsed:new Set()
 };
+const SORT_DIR_DEFAULT = { price:'asc', year:'desc', mileage:'asc', distance:'asc' };
 let currentLeadId=null;
 /* ---------- Facet schema (ADR-0002: facets are data, not UI code) ---------- */
 const FACET_DEFS = [
@@ -683,19 +711,31 @@ function countFor(facetKey, opt){
   return filteredList(f).length;
 }
 function compare(a,b){
-  const s=state.sort;
-  if(s==='price-asc')    return a.price.amount-b.price.amount;
-  if(s==='price-desc')   return b.price.amount-a.price.amount;
-  if(s==='year-desc')    return b.vehicle.year-a.vehicle.year;
-  if(s==='mileage-asc')  return a.vehicle.mileage-b.vehicle.mileage;
-  if(s==='distance-asc'){
+  const s=state.sort, dir=state.sortDir;
+  if(s==='featured'){
+    if(!!a.status.featured!==!!b.status.featured) return a.status.featured?-1:1;
+    if(a.id.indexOf('my-')===0!==(b.id.indexOf('my-')===0)) return a.id.indexOf('my-')===0?-1:1;
+    return String(b.status.postedAt).localeCompare(String(a.status.postedAt));
+  }
+  let cmp;
+  if(s==='price')      cmp=a.price.amount-b.price.amount;
+  else if(s==='year')  cmp=a.vehicle.year-b.vehicle.year;
+  else if(s==='mileage') cmp=a.vehicle.mileage-b.vehicle.mileage;
+  else if(s==='distance'){
     const c=postcodeCoord(state.postcode);
     const d=x=>{ const v=distMiles(x.location,c); return v==null?1e9:v; };
-    return d(a)-d(b);
-  }
-  if(!!a.status.featured!==!!b.status.featured) return a.status.featured?-1:1;
-  if(a.id.indexOf('my-')===0!==(b.id.indexOf('my-')===0)) return a.id.indexOf('my-')===0?-1:1;
-  return String(b.status.postedAt).localeCompare(String(a.status.postedAt));
+    cmp=d(a)-d(b);
+  } else return 0;
+  return dir==='desc'?-cmp:cmp;
+}
+function updateSortDirBtn(){
+  const btn=document.querySelector('#sortDir'); if(!btn) return;
+  const feats=state.sort==='featured';
+  btn.disabled=feats;
+  const words=feats?'Featured has no direction':('Toggle sort direction — '+(state.sortDir==='asc'?'ascending':'descending'));
+  btn.title=words;
+  btn.setAttribute('aria-label',words);
+  btn.textContent=state.sortDir==='asc'?'▲':'▼';
 }
 
 /* ---------- Small DOM / format helpers ---------- */
@@ -770,8 +810,8 @@ function facetBadge(key){
   if(v instanceof Set) return v.size?String(v.size):'';
   return (v[0]!=null||v[1]!=null)?'On':'';
 }
-function groupHead(key,title){
-  const closed=state.collapsed.has(key);
+function groupHead(key,title,forceOpen){
+  const closed=!forceOpen && state.collapsed.has(key);
   const badge=facetBadge(key);
   return '<div class="filter-group'+(closed?' closed':'')+'" data-group="'+key+'">'+
     '<button type="button" class="f-head" data-fgroup="'+key+'" aria-expanded="'+(!closed)+'"><span class="f-label">'+title+'</span>'+(badge?'<span class="f-badge">'+badge+'</span>':'')+'<span class="chev" aria-hidden="true">▾</span></button>'+
@@ -780,19 +820,36 @@ function groupHead(key,title){
 const groupFoot=()=>'</div></div>';
 function renderFacets(){
   const el=$('#facetGroups'); let html='';
-  html+=groupHead('platform','Platform');
-  html+='<div class="platform-quick">'+
-    '<button class="chip '+(state.facets.source.size===0?'on':'')+'" type="button" data-srcq="all">Show all</button>'+
-    '<button class="chip '+(onlyNative()?'on':'')+'" type="button" data-srcq="native">Native only</button>'+
-    '<button class="chip '+(harvestOnly()?'on':'')+'" type="button" data-srcq="harvested">Harvested only</button>'+
-    '</div>';
-  SOURCES.forEach(s=>{
-    const checked=state.facets.source.has(s.id)?'checked':'';
-    html+='<label class="option"><input type="checkbox" data-facet="source" data-value="'+s.id+'" '+checked+'><span>'+esc(s.short)+'</span><span class="count">'+countFor('source',s.id)+'</span></label>';
-  });
-  html+=groupFoot();
+  const q=(state.filterQ||'').trim().toLowerCase();
+  const searching=q.length>0;
+  const hit=(...texts)=> !searching || texts.some(x=>String(x==null?'':x).toLowerCase().includes(q));
+  const hl=(text)=>{
+    const s=esc(text==null?'':text); if(!searching) return s;
+    const i=s.toLowerCase().indexOf(q);
+    return i<0?s:s.slice(0,i)+'<mark>'+s.slice(i,i+q.length)+'</mark>'+s.slice(i+q.length);
+  };
+  const opt=(label,dataFacet,dataValue,count)=>(
+    '<label class="option"><input type="checkbox" data-facet="'+dataFacet+'" data-value="'+esc(dataValue)+'" '+((state.facets[dataFacet]&&state.facets[dataFacet].has(String(dataValue)))?'checked':'')+'><span>'+hl(label)+'</span><span class="count">'+count+'</span></label>'
+  );
+  /* Platform */
+  if(hit('Platform','source','Gumtree','Facebook','AutoTrader','motors.co.uk','Native','Show all','Harvested')) {
+    html+=groupHead('platform','Platform',searching);
+    html+='<div class="platform-quick">'+
+      '<button class="chip '+(state.facets.source.size===0?'on':'')+'" type="button" data-srcq="all">Show all</button>'+
+      '<button class="chip '+(onlyNative()?'on':'')+'" type="button" data-srcq="native">Native only</button>'+
+      '<button class="chip '+(harvestOnly()?'on':'')+'" type="button" data-srcq="harvested">Harvested only</button>'+
+      '</div>';
+    SOURCES.forEach(s=>{
+      if(searching && !hit('Platform',s.label,s.short)) return;
+      html+=opt(s.short,'source',s.id,countFor('source',s.id));
+    });
+    html+=groupFoot();
+  }
   FACET_DEFS.forEach(def=>{
-    html+=groupHead(def.key,def.label);
+    const optLabels = def.type==='multi' ? def.options.map(String) : [];
+    if(searching && !hit(def.label) && !optLabels.some(l=>String(l).toLowerCase().includes(q))) return;
+    const labelHit=hit(def.label);
+    html+=groupHead(def.key,def.label,searching);
     if(def.type==='range'){
       const v=state.facets[def.key];
       html+='<div class="range-grid">'+
@@ -802,24 +859,36 @@ function renderFacets(){
         '</div>';
     } else {
       def.options.forEach(o=>{
-        const cur=state.facets[def.key], checked=cur.has(o);
-        html+='<label class="option"><input type="checkbox" data-facet="'+def.key+'" data-value="'+o+'" '+ (checked?'checked':'')+'><span>'+esc(o)+'</span><span class="count">'+countFor(def.key,o)+'</span></label>';
+        if(searching && !labelHit && !String(o).toLowerCase().includes(q)) return;
+        const cur=state.facets[def.key];
+        const checked=cur.has(o);
+        html+= '<label class="option"><input type="checkbox" data-facet="'+def.key+'" data-value="'+o+'" '+ (checked?'checked':'')+'><span>'+hl(o)+'</span><span class="count">'+countFor(def.key,o)+'</span></label>';
       });
     }
     html+=groupFoot();
   });
   let curSec=null;
   ATTR_FACETS.forEach(F=>{
-    if(F.sec!==curSec){ html+='<div class="filter-section"><span>'+esc(F.sec)+'</span></div>'; curSec=F.sec; }
-    html+=groupHead(F.k,F.label);
     const opts=F.b?F.b.map(bb=>bb[2]):F.e;
+    if(searching && !hit(F.label,F.sec) && !opts.some(o=>String(o).toLowerCase().includes(q))) return;
+    if(F.sec!==curSec){ html+='<div class="filter-section"><span>'+hl(F.sec)+'</span></div>'; curSec=F.sec; }
+    const labelHit=hit(F.label), secHit=hit(F.sec);
+    html+=groupHead(F.k,F.label,searching);
     opts.forEach(opt=>{
+      if(searching && !labelHit && !secHit && !String(opt).toLowerCase().includes(q)) return;
       const cur=state.facets[F.k], checked=cur.has(opt);
-      html+='<label class="option"><input type="checkbox" data-facet="'+F.k+'" data-value="'+esc(opt)+'" '+(checked?'checked':'')+'><span>'+esc(opt)+'</span><span class="count">'+countFor(F.k,opt)+'</span></label>';
+      html+='<label class="option"><input type="checkbox" data-facet="'+F.k+'" data-value="'+esc(opt)+'" '+(checked?'checked':'')+'><span>'+hl(opt)+'</span><span class="count">'+countFor(F.k,opt)+'</span></label>';
     });
     html+=groupFoot();
   });
   el.innerHTML=html;
+  const loc=document.querySelector('.filter-group[data-group="location"]');
+  if(loc){
+    if(searching){
+      const terms=['location','radius','postcode','distance','within','near','miles'];
+      loc.style.display = terms.some(t=>t.includes(q)||q.includes(t)) ? '' : 'none';
+    } else loc.style.display='';
+  }
 }
 function chipX(text,type,key,value){
   return '<span class="chip-x">'+esc(text)+'<button type="button" data-chip="'+type+'" data-key="'+esc(key||'')+'" data-value="'+esc(value||'')+'" aria-label="Remove '+esc(text)+'">✕</button></span>';
@@ -981,7 +1050,30 @@ function wire(){
     if((state.q.length>0)!==had) setCollapsedAll(state.q.length>0);
     renderAll();
   },140));
-  $('#sortSelect').addEventListener('change',e=>{ state.sort=e.target.value; renderResults(); syncHash(); });
+  $('#btnCollapseAll').addEventListener('click',()=>setCollapsedAll(true));
+  $('#btnExpandAll').addEventListener('click',()=>setCollapsedAll(false));
+  const clearFilterSearch=()=>{
+    state.filterQ=''; $('#filterSearch').value=''; $('#filterSearchClear').style.display='none';
+    renderFacets(); syncHash();
+  };
+  $('#filterSearchClear').addEventListener('click',clearFilterSearch);
+  $('#filterSearch').addEventListener('input',function(e){
+    state.filterQ=e.target.value;
+    $('#filterSearchClear').style.display=state.filterQ?'block':'none';
+    renderFacets(); syncHash();
+  });
+  $('#sortSelect').addEventListener('change',e=>{
+    state.sort=e.target.value;
+    if(state.sort!=='featured') state.sortDir = SORT_DIR_DEFAULT[state.sort]||'asc';
+    updateSortDirBtn();
+    renderResults(); syncHash();
+  });
+  $('#sortDir').addEventListener('click',()=>{
+    if(state.sort==='featured') return;
+    state.sortDir = state.sortDir==='asc'?'desc':'asc';
+    updateSortDirBtn();
+    renderResults(); syncHash();
+  });
   $('#radiusSelect').addEventListener('change',e=>{ state.radius=+e.target.value; renderAll(); });
   $('#radiusPostcode').addEventListener('input',e=>{ state.postcode=e.target.value.toUpperCase(); renderAll(); });
   document.addEventListener('click',onDocClick);
@@ -1142,7 +1234,7 @@ function packageState(){
     const v=state.facets[k];
     facets[k]=v instanceof Set ? Array.from(v) : v;
   });
-  return { q:state.q, facets, radius:state.radius, postcode:state.postcode, sort:state.sort };
+  return { q:state.q, facets, radius:state.radius, postcode:state.postcode, sort:state.sort, sortDir:state.sortDir, filterQ:state.filterQ };
 }
 function applyPayload(o){
   if(!o||!o.facets) return;
@@ -1156,6 +1248,8 @@ function applyPayload(o){
   state.radius=+o.radius||0; state.postcode=o.postcode||'';
   $('#radiusSelect').value=String(state.radius); $('#radiusPostcode').value=state.postcode;
   state.sort=o.sort||'featured'; $('#sortSelect').value=state.sort;
+  state.sortDir=o.sortDir||'asc';
+  state.filterQ=o.filterQ||''; $('#filterSearch').value=state.filterQ;
 }
 function syncHash(){
   const s='s='+encodeURIComponent(JSON.stringify(packageState()));
@@ -1172,6 +1266,8 @@ function init(){
   populatePostSelects();
   loadHash();
   wire();
+  updateSortDirBtn();
+  $('#filterSearchClear').style.display=state.filterQ?'block':'none';
   if(state.q&&state.q.length) setCollapsedAll(true);
   renderAll();
   updateActivityCount();

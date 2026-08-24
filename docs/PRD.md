@@ -1,9 +1,9 @@
-# Product Requirements — Pine It v0.2.1 (PoC Revision 3)
+# Product Requirements — Pine It v0.2.2 (PoC Revision 4)
 
 > **One sentence:** Pine It is a UK car marketplace where one search shows every car from every platform — with the strongest filter engine on the market, dirt-cheap zero-fee selling, and attribution-first harvesting of Gumtree, Facebook Marketplace, AutoTrader and motors.co.uk.
 
 - **Type:** PoC product requirements & acceptance criteria
-- **Version:** v0.2.1 (PoC Revision 3) — 2026-08-24
+- **Version:** v0.2.2 (PoC Revision 4) — 2026-08-24
 - **Build target:** single-file static web app (`docs/index.html`) — see ADR-0001
 
 ---
@@ -54,7 +54,7 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 - [x] **Live per-facet result counts** (each checked option shows exactly the count it yields)
 - [x] **Instant re-render** on any change (no submit, no reload)
 - [x] **Platform facet** with show-all / selected-only / exclude / **hide Native** semantics
-- [x] **Sorting**: featured, price ↑↓, year, mileage, distance
+- [x] **Sorting**: featured, plus generic **price / year / mileage / distance** fields each toggleable **asc / desc** via the arrow button next to Sort
 - [x] **Clear all** + empty-state reset
 - [x] **URL-hash state** so any filtered view is shareable/bookmarkable
 
@@ -84,6 +84,12 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 
 17. Every chip's **✕** clears **only that filter** — individually, for range (price/year/mileage/engine), set (multi-select), keyword, and radius chips — while the row's **Clear all** still resets everything.
 18. The Year chip label renders without thousands separators (e.g. `Year: 2001 – 2003`, never `Year: 2,001 – 2,003`); price/mileage keep their formatted separators.
+
+**PoC Revision 4 additions** (per `.clinerules/pia-v1-core-rules.md`):
+
+19. **Collapse all / Expand all** buttons in the filter-pane header collapse or expand **every** filter group at once (location, platform, ranges, multi-selects and sectioned groups), independent of the search auto-collapse behaviour.
+20. **Sorting is now generic + direction-aware**: the dropdown holds **Featured · Price · Year · Mileage · Distance**; picking a non-Featured field defaults to a sensible direction (Year desc, others asc) and an **arrow button** next to the dropdown toggles between ascending/descending. Clicking the arrow re-sorts immediately; direction isn't offered for Featured.
+21. The filter pane (renamed **"Filter Options"**) has a fixed **search filter-options** field under the header (alongside the clear button, outside the scrolling body). Typing filters groups/options with live **highlighted matches** (only matching groups and options remain visible, matching groups force-open); an **✕** inside the field clears the search instantly and restores the full pane. Filter search also persists to the URL hash alongside the other state.
 
 ## 6. Demo script (~3 minutes) — the hero moment
 

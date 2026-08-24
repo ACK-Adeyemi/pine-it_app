@@ -3,6 +3,17 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] — 2026-08-24
+
+### Added
+
+- **PoC Revision 4** (per `.clinerules/pia-v1-core-rules.md`):
+  - **Collapse all / Expand all** — new buttons in the filter-pane header collapse or expand every filter group at once (`setCollapsedAll`, also covering location/platform/ranges/multi-selects/sectioned groups), independent of the search auto-collapse behaviour.
+  - **Generic, direction-aware sorting** — the Sort dropdown now holds **Featured · Price · Year · Mileage · Distance**; choosing a field defaults to a sensible direction (Year desc, the rest asc) and a toggleable **arrow button** (`▲`/`▼`) next to the dropdown flips asc ↔ desc and re-sorts on click. `compare()`/`packageState()` updated; direction is not offered for Featured.
+  - **Search your filters** — the left pane is renamed **"Filter Options"** and gains a fixed (non-scrolling) **search box** beneath the header with a one-tap **✕** clear. `renderFacets()` now filters groups/options to live **highlighted** matches (matching groups force-open), and the location-radius group participates too. Filter search + sort direction persist to the URL hash (`applyPayload`/`packageState`).
+
+- **PoC Revision 3** follow-ups validated alongside (per-chip ✕ and Year chip formatting) — unaffected.
+
 ## [0.2.1] — 2026-08-24
 
 ### Fixed
