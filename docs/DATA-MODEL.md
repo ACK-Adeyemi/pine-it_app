@@ -42,6 +42,9 @@ _(Note: the excerpt above is illustrative; the PoC code in `index.html` is the e
 | `facebook_marketplace` | Facebook Marketplace | `brokered` (no public contact) | `https://www.facebook.com/marketplace/…` + affiliate param |
 | `autotrader` | AutoTrader | `direct` | `https://www.autotrader.co.uk/car-details/{id}…` + affiliate param |
 | `motors.co.uk` | motors.co.uk | `direct` | `https://www.motors.co.uk/car-{id}…` + affiliate param |
+| `cazoo` | Cazoo | `direct` | `https://www.cazoo.co.uk/cars/…` + referral param |
+
+> Note: **Cazoo is a trading name of Motors.co.uk Limited** (brand owned since 27 Jun 2024) — one legal entity exposed under two brands; both remain distinct sources in the registry.
 
 Rules: `mode=native` → in-app contact flow; `mode=direct` → outbound link to source (affiliate-ready URL); `mode=brokered` → "Request via Pine It" lead flow (Pine It forwards, since the source never exposes the seller). All badge colours/CTAs derive from this table.
 
@@ -81,6 +84,7 @@ Remaining value: later general-marketplace categories declare their *own* schema
 - **Deterministic generator** in `index.html`: seeded PRNG (`mulberry32(20260819)`) — same dataset on every load/reviewer.
 - **~700 listings**, UK-plausible: 25 make/model families, 1910–current year (modern-heavy mix, incl. classic-car pocket), £500–£48,000, 5–180k miles, fuel/gearbox/body/colour distributions, realistic postcode areas across 15 UK cities.
 - **Source mix:** Native 40% · Facebook 20% · Gumtree 18% · AutoTrader 14% · motors.co.uk 8%. Broker mode assigned per rules in section 2 (FB mostly brokered, etc.).
+- **PoC Rev 5 — real examples:** `REAL_EXAMPLES` pins one snapshot per competitor (motors.co.uk, AutoTrader, Cazoo, Gumtree, Facebook Marketplace) with real factual listing data + a real deep link (`realListing:true`), bringing the deterministic set to **705**. Images are **representative only** (own illustration, labelled "Representative image") — never a competitor's photo (ADR-0005).
 - User-generated rows (posted ads, lead intents) merge with seed data at render time; write to `localStorage` (`pineit_my_ads`, `pineit_leads`).
 
 ## 6. Import/export contract (migration seam)
@@ -89,6 +93,6 @@ Remaining value: later general-marketplace categories declare their *own* schema
 
 ## 7. Open items (tracked, not decisions)
 
-- Real images/photo flow (PoC uses SVG placeholders only — see production-readiness).
+- Real images/photo flow — PoC uses **representative own illustrations** only (`svgCar()`, labelled "Representative image"); no competitor photograph is stored or hotlinked (ADR-0005). A production build may map self-owned/CC0 photos per make/model via the same seam.
 - Geolocation truthfulness (PoC hashes the user's postcode to a pseudo-coordinate).
 - Affiliate-program specifics (placeholder param names pending actual affiliate contracts).

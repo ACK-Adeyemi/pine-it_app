@@ -8,15 +8,15 @@
 
 | # | Capability | PoC implementation | PoC status | Planned real integration |
 |---|---|---|---|---|
-| 1 | **Listings catalogue** | ~700 deterministic in-code seed listings (prng) | MOCK | Real listing service (native posts + imported market feed) |
-| 2 | **Harvested platforms** (Gumtree, FB Marketplace, AutoTrader, motors.co.uk) | Statistics in seed data; source registry drives labels/URLs/keywords | MOCK | Scrapers/partnerships/feeds per platform, legality-reviewed + original-uploader attribution (?utm affiliate terms) |
+| 1 | **Listings catalogue** | ~700 deterministic in-code seed listings (prng) **+ 5 pinned real-example snapshots** (Rev 5) | MOCK + real demos | Real listing service (native posts + imported market feed) |
+| 2 | **Harvested platforms** (Gumtree, FB Marketplace, AutoTrader, motors.co.uk, **Cazoo**) | **5 pinned real-example snapshots** (one per platform: real factual listing data + real deep link) driving labels/URLs/keywords via the source registry; images are **representative own illustrations** (ADR-0005) | DEMO SNAPSHOTS + STUB (licensed feeds planned) | Licensed feeds/APIs per platform — AutoTrader Connect or direct data agreement, Motors/Gumtree dealer DMS stock feeds, opt-in FB cross-post; original-uploader attribution + affiliate terms. Scraping/hotlinking is out of scope (Trader v CarGurus). |
 | 3 | **Affiliate/outbound links** | URLs built with `?utm_source=pineit…&aff_id={AFF}` placeholder params; open in new tab | STUB | Real affiliate-account params per programme |
 | 4 | **Lead / broker flow** ("Request via Pine It") | Local form → `localStorage['pineit_leads']`; confirmation + re-entry in "My activity" | MOCK | Lead capture API → routing/queue → seller contact via SMS/email/phone; broker commission tracking if middleman model |
 | 5 | **Auth / account wall** | None — anonymous browse, post and lead are all public | N/A (deliberate) | Optional OIDC later; PoC proves no account wall is viable — keep it |
 | 6 | **Post an ad** | Full car form → `localStorage['pineit_my_ads']`; appears live as **Native**, re-renders | MOCK (local persistence) | Real listing service with moderation, image upload |
 | 7 | **Persistence & export/import** | `localStorage` + JSON contract (see DATA-MODEL §6); both read/write lossless | MOCK | Selected provider + `exportDataset()/importDataset()` equivalents (ADR-0003, ADR-0004 pending) |
 | 8 | **Geolocation / radius** | Postcode hashed to a deterministic pseudo-co-ordinate in the UK bbox (haversine distance) | MOCK | Real postcode→lat/lng geocoder + radius search (server-side for v1 volumes) |
-| 9 | **Images / photos** | Inline SVG placeholders per make/colour | MOCK | Real image CDN + upload pipeline; moderation |
+| 9 | **Images / photos** | **Representative own illustrations** (`svgCar()` per make/colour), labelled "Representative image"; no competitor photograph is stored or hotlinked (ADR-0005) | REAL for own images | Real image CDN + upload pipeline for native ads; licensed feeds for harvested ads |
 | 10 | **Extended filter attributes** (seats, ULEZ, running costs, drivetrain, BHP, EV/hybrid, towing, features, safety, keys, MOT, history, usage, dealer, advert options) | Deterministic seeded `attrs` on all listings (correlated with fuel/body/age) | MOCK | Real DVLA / vehicle-data provider and dealer metadata feeds; unit config per ADR-0004 |
 | 10 | **Search backend** | Client-side `Array.filter` over facets | REAL (for scale=700) | Facet-capable search tier (Elasticsearch/Solr/Typesense) when listings > ~10k |
 | 11 | **Hosting / delivery** | GitHub Pages from `/docs`, zero build static | REAL | Real CDN (Cloudflare/Azure CDN), app aliases, https |
@@ -42,4 +42,4 @@
 
 ---
 
-*Companion docs:* `PRD.md` · `DATA-MODEL.md` · `docs/adr/0001–0004`
+*Companion docs:* `PRD.md` · `DATA-MODEL.md` · `docs/adr/0001–0005`

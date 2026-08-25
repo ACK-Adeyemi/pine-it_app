@@ -1,4 +1,4 @@
-# Pine It — v0.2.2 PoC (Revision 4)
+# Pine It — v0.2.3 PoC (Revision 5)
 
 > **Pine It** — *"sticky notes for the car market."* A marketplace with the strongest filter engine on the market: one search, every car, every platform.
 
@@ -9,7 +9,7 @@ Pine It is a UK-focused, cars-first marketplace exploring a better alternative t
 - **Cheap, low-barrier selling** — post an ad in under a minute, no listing fees (unlike AutoTrader).
 - **One feed, every platform** — harvests car ads from other platforms (Gumtree, Facebook Marketplace, AutoTrader, motors.co.uk) and displays them mixed into a single searchable feed with clear source attribution, affiliate-ready outbound links, and a lead/broker path where sellers aren't directly reachable.
 
-This repository contains the **v0.2.2 proof-of-concept (PoC Revision 4)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
+This repository contains the **v0.2.3 proof-of-concept (PoC Revision 5)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
 
 ---
 
@@ -39,6 +39,8 @@ https://<your-user>.github.io/<your-repo>/
 - **Collapse all / Expand all** — one-tap buttons in the filter-pane header collapse or expand **every** filter group (location, platform, ranges, multi-selects, sectioned groups) at once.
 - **Generic direction-aware sorting** — the Sort control holds **Featured · Price · Year · Mileage · Distance** pick one and the adjacent **arrow button** flips asc ↔ desc (Year defaults newest-first, the rest lowest/nearest-first); clicking the arrow re-sorts instantly.
 - **Search your filters** — a fixed **search box** in the **Filter Options** pane finds any filter by name, highlight-matches the text, hides everything unrelated and force-opens matching groups; an **✕** inside the field restores the full pane instantly.
+- **Live examples from our competitors** — a showcase strip above the results with **one real snapshot per platform** (motors.co.uk, AutoTrader, Cazoo, Gumtree, Facebook Marketplace): real car facts, a real deep link, and per-source **mobile app routing** (installed app else browser). Labelled **snapshot** + **Representative image** (ADR-0005 — we never store or hotlink a competitor's photo).
+- **Cazoo as a source** — now a first-class platform in the filter UI (badge, colour, facet, CTA), documented as a trading name of Motors.co.uk Limited.
 
 ## Run locally
 
@@ -89,7 +91,9 @@ pine-it_app/
 │       ├── template.md
 │       ├── 0001-static-single-file-poc-architecture.md
 │       ├── 0002-facet-filter-engine-and-source-registry.md
-│       └── 0003-provider-agnostic-data-strategy.md
+│       ├── 0003-provider-agnostic-data-strategy.md
+│       ├── 0004-filter-controls-and-units.md
+│       └── 0005-real-example-showcase-and-representative-images.md
 ├── .clinerules/             ← agent governance (not published)
 ```
 
@@ -104,4 +108,4 @@ pine-it_app/
 
 ## Status
 
-**v0.2.2 (PoC · Revision 4)** — see [`CHANGELOG.md`](CHANGELOG.md).
+**v0.2.3 (PoC · Revision 5)** — see [`CHANGELOG.md`](CHANGELOG.md).

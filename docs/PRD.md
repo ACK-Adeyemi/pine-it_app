@@ -1,9 +1,9 @@
-# Product Requirements — Pine It v0.2.2 (PoC Revision 4)
+# Product Requirements — Pine It v0.2.3 (PoC Revision 5)
 
-> **One sentence:** Pine It is a UK car marketplace where one search shows every car from every platform — with the strongest filter engine on the market, dirt-cheap zero-fee selling, and attribution-first harvesting of Gumtree, Facebook Marketplace, AutoTrader and motors.co.uk.
+> **One sentence:** Pine It is a UK car marketplace where one search shows every car from every platform — with the strongest filter engine on the market, dirt-cheap zero-fee selling, and attribution-first harvesting of Gumtree, Facebook Marketplace, AutoTrader, Cazoo and motors.co.uk.
 
 - **Type:** PoC product requirements & acceptance criteria
-- **Version:** v0.2.2 (PoC Revision 4) — 2026-08-24
+- **Version:** v0.2.3 (PoC Revision 5) — 2026-08-25
 - **Build target:** single-file static web app (`docs/index.html`) — see ADR-0001
 
 ---
@@ -71,6 +71,7 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 9. Active filters appear as a **chip row above the results**; each chip removes its filter via **✕** (the search text included), and **Clear all** empties the whole row.
 10. The left filter pane uses **motors.co.uk-style collapsible groups** with multi-select options; groups **auto-collapse while a search is active** and re-expand when the search is cleared.
 11. On mobile the filter panel slides up as a **Cazoo-style bottom sheet** with a "Show N results" apply bar; results use a compact 2-column card grid.
+12. A **"Live examples from our competitors"** strip shows exactly one snapshot per platform (motors.co.uk, AutoTrader, Cazoo, Gumtree, Facebook Marketplace); each card carries real listing facts, a **source badge**, a **"Representative image"** label, and a **View on [platform]** CTA that on mobile routes to the installed app (falling back to the browser) — see ADR-0005.
 
 **PoC Revision 2 additions** (per `.clinerules/pia-v1-core-rules.md`):
 

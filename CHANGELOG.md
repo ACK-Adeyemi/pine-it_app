@@ -3,6 +3,22 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3] — 2026-08-25
+
+### Added
+
+- **PoC Revision 5** (per `.clinerules/pia-v1-core-rules.md`):
+  - **Live competitor showcase** — a "Live examples from our competitors" strip above the results with one real snapshot per platform in the Core Competition order (**motors.co.uk, AutoTrader, Cazoo, Gumtree, Facebook Marketplace**). Each card carries real factual listing data, a real deep-link to the platform, and is labelled **snapshot** + **Representative image**; the examples also flow through the facet engine, platform filter, chips and detail view alongside the 700 seeded listings.
+  - **Cazoo is now a first-class source** — new `cazoo` entry in the source registry, so its badge, colour, platform facet and CTA derive automatically (ADR-0002); documented as a trading name of Motors.co.uk Limited.
+  - **Representative-image policy (ADR-0005)** — no competitor photograph is stored or hotlinked. Every card renders Pine It's own car illustration, labelled **"Representative image"** (Trader v CarGurus rationale + per-platform ToS review recorded in ADR-0005). Zero licence cost, zero ToS exposure, robust offline.
+  - **Facebook Marketplace handling** — individual items are behind a Facebook login, so the example is a clearly-labelled representative Marketplace card with a Marketplace-area deep link and an inline "Facebook login required" note.
+  - **Mobile app routing** — `openCompetitor()` uses each source's registered `appScheme` on touch devices for "View on [platform]", falling back to the https URL (Universal/App Link → installed app else default browser); desktop opens a new tab.
+  - New **ADR-0005** (`docs/adr/0005-real-example-showcase-and-representative-images.md`).
+
+### Changed
+
+- `docs/index.html` seeded catalogue is now **705 listings** (700 deterministic + 5 pinned real examples).
+
 ## [0.2.2] — 2026-08-24
 
 ### Added

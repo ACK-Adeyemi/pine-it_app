@@ -125,6 +125,28 @@ input.rng:focus{border-color:var(--pine)}
 .card .actions .btn.inline-link:hover{background:var(--pine-light)}
 .link-view{background:none;border:0;color:var(--pine);font-weight:700;cursor:pointer;padding:0;font-size:13px}
 .link-view:hover{text-decoration:underline}
+/* ---------- Real-example showcase (PoC Rev 5) ---------- */
+#showcase{margin-bottom:20px}
+.showcase-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.showcase-head h2{margin:0;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft)}
+.showcase-head .note{font-size:12px;color:var(--ink-soft)}
+.showcase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.showcase-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(20,40,30,.05)}
+.showcase-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#c4ddd0}
+.showcase-card .photo{position:relative;aspect-ratio:16/9;background:var(--pine-light)}
+.showcase-card .photo svg{width:100%;height:100%;display:block}
+.showcase-card .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+.showcase-card h3{margin:0;font-size:13px;line-height:1.25;cursor:pointer}
+.showcase-card h3:hover{color:var(--pine)}
+.showcase-card .price{font-size:16px;font-weight:800;color:var(--pine-700)}
+.showcase-card .meta{font-size:11px;color:var(--ink-soft);display:flex;gap:5px;flex-wrap:wrap}
+.showcase-card .meta span{background:var(--bg);padding:2px 6px;border-radius:5px}
+.showcase-card .loc{font-size:11px;color:var(--ink-soft)}
+.showcase-card .fb-note{font-size:10px;color:var(--ink-soft);font-style:italic}
+.showcase-card .actions{margin-top:auto;padding-top:8px;display:flex;gap:6px}
+.showcase-card .actions .btn{flex:1;white-space:nowrap}
+.rep-tag{position:absolute;bottom:6px;right:6px;font-size:9px;font-weight:800;letter-spacing:.04em;background:rgba(10,28,20,.72);color:#fff;padding:2px 6px;border-radius:999px}
+.snap-tag{position:absolute;top:6px;right:6px;font-size:9px;font-weight:800;color:#3b2c00;background:var(--amber);padding:2px 6px;border-radius:999px}
 .empty{padding:54px 20px;text-align:center;border:2px dashed var(--line);border-radius:16px;background:var(--surface)}
 .empty .em{font-size:46px}
 .empty h3{margin:10px 0 6px}
@@ -294,6 +316,7 @@ body.no-scroll{overflow:hidden}
       </div>
       <div class="chips" id="chipRow" aria-label="Active filters"></div>
     </div>
+    <div id="showcase"></div>
     <div id="grid" class="grid"></div>
     <div id="emptyState" class="empty" hidden>
       <div class="em">🛻</div>
@@ -386,22 +409,24 @@ body.no-scroll{overflow:hidden}
 <script>
 'use strict';
 /* =========================================================
-   Pine It v0.2.2 PoC — single-file marketplace demo
+   Pine It v0.2.3 PoC — single-file marketplace demo
    Docs: PRD.md · DATA-MODEL.md · PoC-PRODUCTION-READINESS.md
-         adr/0001-0004
+         adr/0001-0005
    ========================================================= */
 
 /* ---------- Source registry (ADR-0002: add a platform = one row) ---------- */
 const SOURCES = [
-  { id:'pine_it_native', label:'Pine It', short:'Native', colour:'#147a4e', contact:'native', url:null },
+  { id:'pine_it_native', label:'Pine It', short:'Native', colour:'#147a4e', contact:'native', url:null, appScheme:null },
   { id:'gumtree', label:'Gumtree', short:'Gumtree', colour:'#f59e2a', contact:'broked',
-    url:(id)=>'https://www.gumtree.com/p/cars/pineit-'+id+'?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}', domain:'gumtree.com' },
+    url:(id)=>'https://www.gumtree.com/p/cars/pineit-'+id+'?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}', domain:'gumtree.com', appScheme:'gumtree://' },
   { id:'facebook_marketplace', label:'Facebook Marketplace', short:'Facebook', colour:'#1877f2', contact:'brokered',
-    url:(id)=>'https://www.facebook.com/marketplace/item/pineit-'+id+'?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}', domain:'facebook.com' },
+    url:(id)=>'https://www.facebook.com/marketplace/item/pineit-'+id+'?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}', domain:'facebook.com', appScheme:'fb://marketplace' },
   { id:'autotrader', label:'AutoTrader', short:'AutoTrader', colour:'#7d3cff', contact:'direct',
-    url:(id)=>'https://www.autotrader.co.uk/car-details/pineit-'+id+'?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}', domain:'autotrader.co.uk' },
+    url:(id)=>'https://www.autotrader.co.uk/car-details/pineit-'+id+'?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}', domain:'autotrader.co.uk', appScheme:'autotrader://' },
   { id:'motors_co_uk', label:'motors.co.uk', short:'motors.co.uk', colour:'#d93a1e', contact:'direct',
-    url:(id)=>'https://www.motors.co.uk/used-car/pineit-'+id+'/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}', domain:'motors.co.uk' }
+    url:(id)=>'https://www.motors.co.uk/used-car/pineit-'+id+'/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}', domain:'motors.co.uk', appScheme:'motors://' },
+  { id:'cazoo', label:'Cazoo', short:'Cazoo', colour:'#0c6ef2', contact:'direct',
+    url:(id)=>'https://www.cazoo.co.uk/cars/pineit-'+id+'/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}', domain:'cazoo.co.uk', appScheme:'cazoo://' }
 ];
 const SOURCE_MAP = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
 const HARVESTED_IDS = SOURCES.filter(s=>s.id!=='pine_it_native').map(s=>s.id);
@@ -555,6 +580,54 @@ function makeSeedListings(count){
   return out;
 }
 const seeds = makeSeedListings(700);
+
+/* ---------- PoC Rev 5: one real example per competitor (point-in-time snapshots) ----------
+   Real cars + real platform deep-links. Images are REPRESENTATIVE (our own SVG illustration),
+   never the competitor's copyrighted photo. See ADR-0005 for the production image-licensing policy. */
+const _rngReal = mulberry32(5021);
+const REAL_EXAMPLES = [
+  { id:'real-motors-fiesta', source:'motors_co_uk',
+    homeUrl:'https://www.motors.co.uk/used-cars/ford/fiesta/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
+    title:'2011 Ford Fiesta 1.25 Zetec 5dr',
+    description:'Live motors.co.uk dealer listing snapshot. Fiesta 1.25 Zetec, HPI cleared, dealer warranty offered. Real UK listing surfaced through Pine It.',
+    vehicle:{make:'Ford',model:'Fiesta',year:2011,mileage:71600,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:5,engineSize:1.2,colour:'Grey',condition:'Used'},
+    price:{amount:2495,currency:'GBP'}, location:{city:'Canvey Island',postcode:'SS8 0QD',lat:51.521,lng:0.589},
+    status:{sold:false,featured:false,postedAt:'2026-08-20T10:00:00Z'}, realListing:true },
+  { id:'real-autotrader-corsa', source:'autotrader',
+    homeUrl:'https://www.autotrader.co.uk/used-cars/vauxhall/corsa/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
+    title:'2012 Vauxhall Corsa 1.4i 16v Design (a/c)',
+    description:'Live AutoTrader listing snapshot from an independent dealer. Low-cost supermini, MOT leading, part-exchange welcome. Real UK listing car.',
+    vehicle:{make:'Vauxhall',model:'Corsa',year:2012,mileage:78600,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:3,engineSize:1.4,colour:'Silver',condition:'Used'},
+    price:{amount:1695,currency:'GBP'}, location:{city:'Leicester',postcode:'LE4 1AN',lat:52.655,lng:-1.15},
+    status:{sold:false,featured:false,postedAt:'2026-08-21T10:00:00Z'}, realListing:true },
+  { id:'real-cazoo-fiesta', source:'cazoo',
+    homeUrl:'https://www.cazoo.co.uk/cars/ford/fiesta/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
+    title:'2019 Ford Fiesta ST-Line 1.0 EcoBoost',
+    description:'Live Cazoo example. Cazoo (a trading name of Motors.co.uk Ltd) sells certified used cars online — fully inspected, warrantied, delivered to your door.',
+    vehicle:{make:'Ford',model:'Fiesta',year:2019,mileage:28600,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:5,engineSize:1.0,colour:'Black',condition:'Used'},
+    price:{amount:12950,currency:'GBP'}, location:{city:'Peterborough',postcode:'PE2 1RM',lat:52.567,lng:-0.07},
+    status:{sold:false,featured:false,postedAt:'2026-08-22T10:00:00Z'}, realListing:true },
+  { id:'real-gumtree-id4', source:'gumtree',
+    homeUrl:'https://www.gumtree.com/p/volkswagen/2022-volkswagen-id.4-id4-life-5dr-suv-electric-automatic/1515546970?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
+    title:'2022 Volkswagen ID.4 Life 5dr SUV (Electric)',
+    description:'Live Gumtree snapshot. VW ID.4 ID4 Life, single owner, 58kWh EV with charge cable. Real UK listing car surfaced through Pine It.',
+    vehicle:{make:'Volkswagen',model:'ID.4',year:2022,mileage:19400,fuel:'Electric',gearbox:'Automatic',body:'SUV',doors:5,engineSize:'—',colour:'White',condition:'Nearly new'},
+    price:{amount:24950,currency:'GBP'}, location:{city:'Derby',postcode:'DE1 1DL',lat:52.921,lng:-1.471},
+    status:{sold:false,featured:false,postedAt:'2026-08-22T10:00:00Z'}, realListing:true },
+  { id:'real-fb-astra', source:'facebook_marketplace',
+    homeUrl:'https://www.facebook.com/marketplace/category/cars/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
+    title:'2018 Vauxhall Astra SRi Nav (Facebook Marketplace)',
+    description:'Representative example of the kind of car listed on Facebook Marketplace. Individual Facebook Marketplace items sit behind a Facebook login, so Pine It surfaces them and deep-links to the Marketplace area.',
+    vehicle:{make:'Vauxhall',model:'Astra',year:2018,mileage:45200,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:5,engineSize:1.4,colour:'Blue',condition:'Used'},
+    price:{amount:7950,currency:'GBP'}, location:{city:'Nottingham',postcode:'NG1 1AA',lat:52.954,lng:-1.158},
+    status:{sold:false,featured:false,postedAt:'2026-08-22T10:00:00Z'}, realListing:true }
+].map(function(o){
+  o.attrs = makeAttrs(_rngReal, o.vehicle.body, o.vehicle.fuel, o.vehicle.year);
+  o.status = o.status || {sold:false,featured:false,postedAt:'2026-08-20T10:00:00Z'};
+  o.contact = { mode: SOURCE_MAP[o.source].contact, outboundUrl: o.homeUrl };
+  return o;
+});
+seeds.push.apply(seeds, REAL_EXAMPLES);
 
 /* ---------- Local persistence (mock — see PoC-PRODUCTION-READINESS.md) ---------- */
 function lsGet(k,f){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):f; }catch(e){ return f; } }
@@ -779,10 +852,50 @@ function pill(s){
 }
 function actionFor(l){
   const s=SOURCE_MAP[l.source];
-  if(s.contact==='direct' && s.url){
-    return '<a class="btn small" href="'+esc(s.url(l.id))+'" target="_blank" rel="noopener">View on '+esc(s.short)+'</a>';
+  if(l.homeUrl){
+    return '<a class="btn small" href="'+esc(l.homeUrl)+'" target="_blank" rel="noopener">View on '+esc(s.short)+'</a>';
   }
-  return '<button class="btn small" type="button" data-lead="'+l.id+'">'+(s.contact==='native'?'Contact seller':'Request via Pine It')+'</button>';
+  if(s.contact==='direct' && s.url){
+    return '<a class="btn small" href="'+esc(s.url(l.id))+'">View on '+esc(s.short)+'</a>';
+  }
+  return '<button class="btn small" type="button" data-lead="'+l.id+'">'+(l.source==='pine_it_native'?'Contact seller':'Request via Pine It')+'</button>';
+}
+/* App-link routing (PoC Rev 5): on a coarse-pointer (mobile) device, try the platform's
+   registered app scheme first so the installed app is launched; fall back to the https
+   URL (a Universal/App Link, which on desktop simply opens a new tab). */
+function openCompetitor(src, url){
+  if(!url) return;
+  const mobile = window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if(mobile && src.appScheme){
+    const done = setTimeout(function(){ window.open(url,'_blank','noopener'); }, 500);
+    try{ window.location.href = src.appScheme; }
+    catch(e){ clearTimeout(done); window.open(url,'_blank','noopener'); }
+    setTimeout(function(){ clearTimeout(done); }, 1300);
+  } else {
+    window.open(url,'_blank','noopener');
+  }
+}
+function repTag(l){ return l.realListing ? '<span class="rep-tag">Representative image</span>' : ''; }
+function scMeta(v){ return [fmtNum(v.mileage)+' mi',v.fuel,v.gearbox,v.body].map(x=>'<span>'+esc(x)+'</span>').join(''); }
+function renderShowcase(){
+  const el=$('#showcase'); if(!el) return;
+  const items = seeds.filter(l=>l.realListing);
+  el.hidden = items.length===0;
+  el.innerHTML = '<div class="showcase-head"><h2>Live examples from our competitors</h2>'+
+    '<span class="note">Real UK listings surfaced through Pine It · point-in-time snapshots</span></div>'+
+    '<div class="showcase-grid">'+ items.map(function(l){
+      const s=SOURCE_MAP[l.source];
+      const fb = l.id.indexOf('fb-')===0 ? '<div class="fb-note">Facebook login required to open an individual item</div>' : '';
+      return '<article class="showcase-card" data-id="'+l.id+'">'+
+        '<div class="photo" data-view="'+l.id+'">'+svgCar(l)+pill(s)+'<span class="snap-tag">snapshot</span>'+repTag(l)+'</div>'+
+        '<div class="body">'+
+          '<h3 data-view="'+l.id+'">'+esc(l.title)+'</h3>'+
+          '<div class="price">'+fmtCur(l.price.amount)+'</div>'+
+          '<div class="meta">'+scMeta(l)+'</div>'+
+          '<div class="loc">📍 '+esc(l.location.city)+'</div>'+fb+
+          '<div class="actions"><button class="btn small" type="button" data-open="'+l.id+'">View on '+esc(s.short)+'</button></div>'+
+        '</div></article>';
+    }).join('') + '</div>';
 }
 function card(l){
   const s=SOURCE_MAP[l.source], v=l.vehicle;
@@ -791,7 +904,7 @@ function card(l){
   const meta=[fmtNum(v.mileage)+' mi',v.fuel,v.gearbox,v.body].map(x=>'<span>'+esc(x)+'</span>').join('');
   const flag=l.status.featured?'<span class="flag">Featured</span>':'';
   return '<article class="card" data-id="'+l.id+'">'+
-    '<div class="photo" data-view="'+l.id+'">'+svgCar(l)+pill(s)+flag+'</div>'+
+    '<div class="photo" data-view="'+l.id+'">'+svgCar(l)+pill(s)+flag+repTag(l)+'</div>'+
     '<div class="body">'+
       '<h3 data-view="'+l.id+'">'+esc(l.title)+'</h3>'+
       '<div class="price">'+fmtCur(l.price.amount)+'</div>'+
@@ -930,6 +1043,7 @@ function emptyHint(){
   return 'The active '+active.join(', ')+' filter'+(active.length>1?'s':'')+' match nothing together. Try removing one.';
 }
 function renderResults(){
+  renderShowcase();
   const list=filteredList().sort(compare);
   const grid=$('#grid');
   if(list.length===0){
@@ -1012,6 +1126,8 @@ function onDocClick(e){
   if(src){ applySourceQuick(src.dataset.srcq); return; }
   const lead=e.target.closest('[data-lead]');
   if(lead){ openLead(lead.dataset.lead); return; }
+  const opn=e.target.closest('[data-open]');
+  if(opn){ const l=findL(opn.dataset.open); if(l){ openCompetitor(SOURCE_MAP[l.source], l.homeUrl||(SOURCE_MAP[l.source].url?SOURCE_MAP[l.source].url(l.id):'')); } return; }
   const view=e.target.closest('[data-view]');
   if(view){ openDetail(view.dataset.view); return; }
   const del=e.target.closest('[data-del]');
