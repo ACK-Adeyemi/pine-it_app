@@ -3,6 +3,13 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.2] — 2026-08-26
+
+### Fixed
+
+- **Misleading running-filter counts (user-reported)** — with no filters set, the panel showed `For parts: 0`, `Show Spares & Repairs: 696` and `Show Non Starters: 691`. Root cause: the two non-runner surfaces were modelled as special *"reveal-all" toggles* backed by a hidden gate inside the filter engine, so they reported "what the whole feed becomes", while the Condition facet's `For parts` option counted 0 because its members were gated out of the default view — two overlapping controls disagreeing with each other.
+- **Restructured as honest facets:** **Running status** is now a normal multi-select (**Running · Spares & Repairs · Non Starter**) with true per-option counts (**682 / 14 / 9**); the hidden gate and both reveal-toggles are deleted, so selecting *only* Spares & Repairs yields exactly its 14 members and unchecking all three options shows the full catalogue. The **Condition** facet moved into **"Condition & running"**, and `For parts` no longer appears as a standalone option there (every For-parts car is a Spares & Repairs car — sellers still record For-parts in the post form). Default selection remains **{Running}** (per stakeholder choice), and that default renders **no chip, badge or empty-hint text**, so it can't be mistaken for an active filter; Clear all restores it.
+
 ## [0.3.1] — 2026-08-26
 
 ### Fixed

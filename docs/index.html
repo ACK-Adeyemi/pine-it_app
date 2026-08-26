@@ -747,13 +747,16 @@ let myLeads = lsGet(LS_LEADS, []);
 function allListings(){ return myAds.concat(seeds); }
 
 /* ---------- App state ---------- */
-const MULTI_KEYS=['make','fuel','gearbox','body','colour','condition','source','doors'];
+const MULTI_KEYS=['make','fuel','gearbox','body','colour','source','doors'];
 const state = {
   q:[],
   facets:{
     price:[null,null], year:[null,null], mileage:[null,null], engine:[null,null],
     make:new Set(), fuel:new Set(), gearbox:new Set(), body:new Set(),
-    colour:new Set(), condition:new Set(), source:new Set(), doors:new Set()
+    colour:new Set(), source:new Set(), doors:new Set(),
+    /* run/condition live under the "Condition & running" section (ATTR_FACETS);
+       default feed = Running only until the buyer opts into spares/non-starters. */
+    run:new Set(['Running']), condition:new Set()
   },
   radius:0, postcode:'', sort:'featured', sortDir:'asc', filterQ:'',
   collapsed:new Set()
@@ -770,13 +773,15 @@ const FACET_DEFS = [
   { key:'gearbox',  label:'Gearbox',     type:'multi', options:GEARS },
   { key:'body',     label:'Body type',   type:'multi', options:BODY },
   { key:'colour',   label:'Colour',      type:'multi', options:COLOURS },
-  { key:'condition',label:'Condition',   type:'multi', options:COND },
   { key:'engine',   label:'Engine size (L)', type:'range', min:0, max:4, step:0.1 },
   { key:'doors',    label:'Doors',       type:'multi', options:[2,3,4,5] }
 ];
 const ATTR_FACETS=[
-  {k:'srr',sec:'Condition & running',label:'Spares & Repairs',e:['Show Spares & Repairs'],special:'srr'},
-  {k:'ns',sec:'Condition & running',label:'Non Starter',e:['Show Non Starters'],special:'ns'},
+  /* Condition & running (v0.3.2): honest multi-selects. 'For parts' is intentionally NOT a
+     standalone option — every For-parts car IS a Spares & Repairs car, so one option governs;
+     sellers still record For-parts via the post form's Condition/running-status fields. */
+  {k:'run',sec:'Condition & running',label:'Running status',e:['Running','Spares & Repairs','Non Starter'],v:l=>runLabel(l)},
+  {k:'condition',sec:'Condition & running',label:'Condition',e:['New','Nearly new','Used','Good condition'],v:l=>l.vehicle.condition},
   {k:'tax',sec:'Running costs',label:'Annual road tax',b:[[0,150,'Up to £150'],[150,300,'£150–£300'],[300,450,'£300–£450'],[450,99999,'Over £450']],v:l=>l.attrs.tax},
   {k:'insr',sec:'Running costs',label:'Insurance group',b:[[1,20,'Group 1–20'],[21,30,'Group 21–30'],[31,40,'Group 31–40'],[41,50,'Group 41–50']],v:l=>l.attrs.insr},
   {k:'mpg',sec:'Running costs',label:'Fuel economy',b:[[24,35,'Up to 35 MPG'],[35,45,'35–45 MPG'],[45,55,'45–55 MPG'],[55,99,'Over 55 MPG']],v:l=>l.attrs.mpg},
@@ -838,11 +843,8 @@ function matches(l, f){
       if(!set.has(String(val))) return false;
     }
   }
-  /* PoC Rev 6: running-state gate — default view hides spares/non-starters until surfaced
-     by their filters (explicit seller selection AND auto-detected wording both land here). */
-  const run=runOf(l);
-  if(run==='nonstarter'){ if(!(f.ns&&f.ns.size)) return false; }
-  else if(run==='repairs'){ if(!(f.srr&&f.srr.size)) return false; }
+  /* v0.3.2: the old hidden-gate was removed — running status is now a normal multi-select
+     facet handled by attrMatch (default selection {Running} provides the same behaviour). */
   if(state.postcode && state.radius>0){
     const d=distMiles(l.location, postcodeCoord(state.postcode));
     if(d==null || d>state.radius) return false;
@@ -853,8 +855,6 @@ function attrMatch(l,f){
   for(let i=0;i<ATTR_FACETS.length;i++){
     const F=ATTR_FACETS[i], set=f[F.k];
     if(!set||!set.size) continue;
-    /* srr/ns are gated in matches() itself (default view = running only), skip generic logic */
-    if(F.special==='srr'||F.special==='ns') continue;
     const val=F.v(l);
     if(F.sp==='usage'){
       const u=l.attrs.usage; let ok=true;
@@ -1000,6 +1000,12 @@ function runOf(l){
   if(l.attrs && l.attrs.run) return l.attrs.run;
   return runningStatus(l.title,l.description,l.vehicle&&l.vehicle.condition);
 }
+/* PoC Rev 6 (restructured in v0.3.2): running status is a NORMAL multi-select facet
+   ("Condition & running" section) with honest per-option counts — no reveal-toggles,
+   no hidden-gate magic. Default selection = {Running} so the hero feed shows runners;
+   ticking Spares & Repairs / Non Starter surfaces those exact categories. */
+const RUN_LABELS={ running:'Running', repairs:'Spares & Repairs', nonstarter:'Non Starter' };
+function runLabel(l){ return RUN_LABELS[runOf(l)]||'Running'; }
 function runBadge(l){
   const r=runOf(l);
   if(r==='repairs') return '<span class="run-badge rb-rep" title="Spares or Repairs">Spares &amp; Repairs</span>';
@@ -1051,7 +1057,10 @@ function facetBadge(key){
   const k=key==='platform'?'source':key;
   const v=state.facets[k];
   if(!v) return '';
-  if(v instanceof Set) return v.size?String(v.size):'';
+  if(v instanceof Set){
+    if(k==='run'&&v.size===1&&v.has('Running')) return ''; /* default ≠ active filter */
+    return v.size?String(v.size):'';
+  }
   return (v[0]!=null||v[1]!=null)?'On':'';
 }
 function groupHead(key,title,forceOpen){
@@ -1148,7 +1157,10 @@ function renderChips(){
   Object.keys(state.facets).forEach(k=>{
     const v=state.facets[k];
     if(v instanceof Set){
-      if(v.size) v.forEach(val=>{ parts.push(chipX(FACET_LABELS[k]+': '+val,'set',k,val)); });
+      if(v.size) v.forEach(val=>{
+        if(k==='run'&&val==='Running'&&v.size===1) return; /* default selection isn't a chip */
+        parts.push(chipX(FACET_LABELS[k]+': '+val,'set',k,val));
+      });
     } else if(v[0]!=null||v[1]!=null){
       parts.push(chipX(FACET_LABELS[k]+': '+boundLabel(k,v),'range',k,''));
     }
@@ -1167,7 +1179,8 @@ function emptyHint(){
   if(state.q&&state.q.length)active.push('search for "'+state.q.join('", "')+'"');
   Object.keys(state.facets).forEach(k=>{
     const v=state.facets[k];
-    if(v instanceof Set ? v.size : (v[0]!=null||v[1]!=null)) active.push(FACET_LABELS[k].toLowerCase());
+    const isDefaultRun=k==='run'&&v instanceof Set&&v.size===1&&v.has('Running');
+    if(v instanceof Set ? (!isDefaultRun&&v.size) : (v[0]!=null||v[1]!=null)) active.push(FACET_LABELS[k].toLowerCase());
   });
   if(state.radius>0&&state.postcode) active.push('radius');
   if(!active.length) return 'Try opening the filter panel and relaxing a couple of options.';
@@ -1207,6 +1220,7 @@ function openOverlay(id){
 function resetFilters(){
   state.q=[]; state.facets.price=[null,null]; state.facets.year=[null,null]; state.facets.mileage=[null,null]; state.facets.engine=[null,null];
   Object.keys(state.facets).forEach(k=>{ const vv=state.facets[k]; if(vv instanceof Set) vv.clear(); else state.facets[k]=[null,null]; });
+  state.facets.run.add('Running'); /* v0.3.2: default feed is Running-only after Clear all */
   state.radius=0; state.postcode='';
   state.collapsed.clear();
   $('#searchInput').value=''; $('#radiusSelect').value='0'; $('#radiusPostcode').value='';
