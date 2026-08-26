@@ -67,7 +67,7 @@ Facets are **declarative and category-owned** (ADR-0002); a category's facet sch
 | `doors`   | Doors | multi | 2, 3, 4, 5 |
 | `attrs.*` | Motor.co.uk-style facet set | buckets/multi/toggle | see ADR-0004 (buckets carry units in labels) |
 
-_Extended attribute schema on every listing (`attrs`):_ `seats, bhp, drivetrain, tax, insr, mpg, co2, evR, evMin, leased, bwarr, towB, towU, features[], rate, keys, mot, ulez, imported, cat, usage, dRating, dType, partEx, images, reduced, sold` — deterministic seeded demo data correlated with fuel/body/age (see PRODUCTION-READINESS; real source = DVLA/vehicle-data partners).
+_Extended attribute schema on every listing (`attrs`):_ `seats, bhp, drivetrain, tax, insr, mpg, co2, evR, evMin, leased, bwarr, towB, towU, features[], rate, keys, mot, ulez, imported, cat, usage, dRating, dType, partEx, images, reduced, sold` + **`run`** (PoC Rev 6 running-state: `running | repairs | nonstarter`) — deterministic seeded demo data correlated with fuel/body/age (see PRODUCTION-READINESS; real source = DVLA/vehicle-data partners). `run` is set by the phrase-list classifier over title/description/condition, or directly by an explicit seller selection in the post form — see ADR-0006.
 | `make` | Make | multi | all makes (seeded) |
 | `fuel` | Fuel | multi | Petrol, Diesel, Hybrid, Electric |
 | `gearbox` | Gearbox | multi | Manual, Automatic |
@@ -85,6 +85,7 @@ Remaining value: later general-marketplace categories declare their *own* schema
 - **~700 listings**, UK-plausible: 25 make/model families, 1910–current year (modern-heavy mix, incl. classic-car pocket), £500–£48,000, 5–180k miles, fuel/gearbox/body/colour distributions, realistic postcode areas across 15 UK cities.
 - **Source mix:** Native 40% · Facebook 20% · Gumtree 18% · AutoTrader 14% · motors.co.uk 8%. Broker mode assigned per rules in section 2 (FB mostly brokered, etc.).
 - **PoC Rev 5 — real examples:** `REAL_EXAMPLES` pins one snapshot per competitor (motors.co.uk, AutoTrader, Cazoo, Gumtree, Facebook Marketplace) with real factual listing data + a real deep link (`realListing:true`), bringing the deterministic set to **705**. Images are **representative only** (own illustration, labelled "Representative image") — never a competitor's photo (ADR-0005).
+- **PoC Rev 6 — posting parity:** the post-an-ad form's optional "Specification & running details" section maps every filterable `attrs` field onto the listing; blanks are filled by the same deterministic derivation (`makeAttrs(rng,body,fuel,year,overrides)`), so native posts are indistinguishable structurally from seeded rows. The owner-selected or auto-detected `attrs.run` feeds the "Condition & running" facets.
 - User-generated rows (posted ads, lead intents) merge with seed data at render time; write to `localStorage` (`pineit_my_ads`, `pineit_leads`).
 
 ## 6. Import/export contract (migration seam)

@@ -3,6 +3,19 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] — 2026-08-26
+
+### Added
+
+- **PoC Revision 6** (per `.clinerules/pia-v1-core-rules.md`):
+  - **Expanded "Post an ad" form** — a new optional, collapsible **"Specification & running details"** section brings posting to parity with motors.co.uk/AutoTrader by exposing every field the filter engine can search on: engine size (L), seats, doors, power (bhp), drivetrain, annual tax, insurance group, fuel economy (MPG), CO₂, ULEZ, number of keys, safety rating, has-MOT/imported flags, damage category (None/Cat N/S/C/D), popular features (CarPlay, Bluetooth, Leather seats, Wheelchair access), towing weights (braked/unbraked), seller/dealer type and part-exchange availability. **EV & hybrid extras** (range, fast-charge time, leased battery, battery warranty) appear only when fuel is Electric/Hybrid. Blank fields are auto-filled by deterministic defaults (`makeAttrs(rng,body,fuel,year,overrides)`), so **every posted ad stays fully filterable**, and sellers can pick doors/engine size without opening the section.
+  - **Explicit Running-status selector in the post form** — sellers choose Auto-detect *(default)*, **Running**, **Spares & Repairs** or **Non Starter**. An explicit **Spares & Repairs** or **Non Starter** selection always wins over automatic wording detection; auto-detect remains as a backstop (e.g. someone who forgets the selector but writes "breaking for spares").
+  - **Spares & Repairs / Non Starter filters** — a new **"Condition & running"** facet section (per ADR-0002 facets-as-data) with two toggles that read each listing's classified state: the default feed now shows **running vehicles only**; ticking *Show Spares & Repairs* / *Show Non Starters* surfaces both explicitly-selected and auto-detected listings. Chips ✕/Clear-all, live counts, collapse-all and URL-hash sharing all work through the existing engine paths.
+  - **Deterministic phrase-list classifier** (`runningStatus(title,description,condition)`) — word-boundary-matched strong phrase lists with precedence **Non Starter > Spares & Repairs > Running**, plus `condition==='For parts'` mapping to repairs. Chosen over an LLM because the PoC is a static single-file app with no backend/API keys (ADR-0001); the LLM path is documented as a production enhancement in **ADR-0006**. Legacy `localStorage` ads saved pre-Rev 6 are classified on the fly, so old posts stay correct.
+  - **Seeded demo pocket** — deterministic slice of the catalogue (~144 "For parts"-condition cars re-titled/priced as spares, ~10 explicit non-runners repriced at scrap-level values) so the new filters demo non-empty without breaking reproducibility (705 total unchanged).
+  - **Badges & full spec sheet** — cards and the detail view now show a **Spares & Repairs** (amber) / **Non Starter** (red) badge, and the detail view renders the complete `attrs` spec sheet (`attrRows`) — what you can filter on is exactly what you see.
+  - New **ADR-0006** (`docs/adr/0006-ad-posting-parity-and-running-state-classification.md`).
+
 ## [0.2.4] — 2026-08-26
 
 ### Fixed

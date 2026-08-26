@@ -1,9 +1,9 @@
-# Product Requirements — Pine It v0.2.3 (PoC Revision 5)
+# Product Requirements — Pine It v0.3.0 (PoC Revision 6)
 
 > **One sentence:** Pine It is a UK car marketplace where one search shows every car from every platform — with the strongest filter engine on the market, dirt-cheap zero-fee selling, and attribution-first harvesting of Gumtree, Facebook Marketplace, AutoTrader, Cazoo and motors.co.uk.
 
 - **Type:** PoC product requirements & acceptance criteria
-- **Version:** v0.2.3 (PoC Revision 5) — 2026-08-25
+- **Version:** v0.3.0 (PoC Revision 6) — 2026-08-26
 - **Build target:** single-file static web app (`docs/index.html`) — see ADR-0001
 
 ---
@@ -91,6 +91,13 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 19. **Collapse all / Expand all** buttons in the filter-pane header collapse or expand **every** filter group at once (location, platform, ranges, multi-selects and sectioned groups), independent of the search auto-collapse behaviour.
 20. **Sorting is now generic + direction-aware**: the dropdown holds **Featured · Price · Year · Mileage · Distance**; picking a non-Featured field defaults to a sensible direction (Year desc, others asc) and an **arrow button** next to the dropdown toggles between ascending/descending. Clicking the arrow re-sorts immediately; direction isn't offered for Featured.
 21. The filter pane (renamed **"Filter Options"**) has a fixed **search filter-options** field under the header (alongside the clear button, outside the scrolling body). Typing filters groups/options with live **highlighted matches** (only matching groups and options remain visible, matching groups force-open); an **✕** inside the field clears the search instantly and restores the full pane. Filter search also persists to the URL hash alongside the other state.
+
+**PoC Revision 6 additions** (per `.clinerules/pia-v1-core-rules.md`, decisions in **ADR-0006**):
+
+22. The **Post an ad** form gains an optional collapsible **"Specification & running details"** section whose fields map 1:1 onto the filter-engine facets (seats, doors, bhp, drivetrain, tax, insurance group, MPG, CO₂, ULEZ, keys, safety rating, MOT, imported, damage category, features, towing braked/unbraked, seller type, part-exchange — plus EV/hybrid extras shown only for Electric/Hybrid fuel). Any blank field is auto-filled with a deterministic default so a posted ad is always fully filterable.
+23. The form includes a **Running status** selector (*Auto-detect · Running · Spares & Repairs · Non Starter*). An explicit **Spares & Repairs**/**Non Starter** selection always defines the ad's state regardless of wording; auto-detect applies the phrase-list classifier to title+description as a backstop only.
+24. New **"Condition & running"** filter section provides **Spares & Repairs** and **Non Starter** toggles over the classified state (`attrs.run`; precedence Non Starter > Spares & Repairs > Running; `For parts` ⇒ repairs). By default the feed shows **running vehicles only**; enabling a toggle surfaces matching non-runners alongside everything above them in precedence. Chips, counts, collapse-all and hash-sharing behave like any other facet.
+25. Cards and the detail view badge non-running states (**Spares & Repairs** amber / **Non Starter** red) and the detail view renders the listing's full `attrs` spec sheet.
 
 ## 6. Demo script (~3 minutes) — the hero moment
 

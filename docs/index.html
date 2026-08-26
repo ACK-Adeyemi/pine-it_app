@@ -125,6 +125,16 @@ input.rng:focus{border-color:var(--pine)}
 .card .actions .btn.inline-link:hover{background:var(--pine-light)}
 .link-view{background:none;border:0;color:var(--pine);font-weight:700;cursor:pointer;padding:0;font-size:13px}
 .link-view:hover{text-decoration:underline}
+/* ---------- PoC Rev 6: running-state badges + post-form spec section ---------- */
+.run-badge{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;color:#fff;display:inline-block}
+.rb-rep{background:#c2760a}
+.rb-ns{background:#b23a2e}
+.spec-details{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:6px 0;background:var(--bg)}
+.spec-details summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--pine-700)}
+.spec-details[open]{padding-bottom:12px}
+.f.chk{display:flex;align-items:center;gap:8px;font-weight:600}
+.chk-row{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;margin-top:4px}
+.hint{display:block;font-size:11px;color:var(--ink-soft);font-weight:400;margin-top:3px}
 /* ---------- Real-example showcase (PoC Rev 5) ---------- */
 #showcase{margin-bottom:20px}
 .showcase-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
@@ -328,7 +338,7 @@ body.no-scroll{overflow:hidden}
 </div>
 
 <footer class="app-footer">
-  Pine It v0.2.2 PoC · Revision 4 · one search, every car, every platform<br>
+  Pine It v0.3.0 PoC · Revision 6 · one search, every car, every platform<br>
   <span class="fine">Demo data only — imported listings are mocked for concept validation. Images are placeholders. Built as a single static file for GitHub Pages.</span>
 </footer>
 
@@ -350,6 +360,51 @@ body.no-scroll{overflow:hidden}
         <label class="f">Body<select id="pf_body"></select></label>
         <label class="f">Colour<select id="pf_colour"></select></label>
         <label class="f">Condition<select id="pf_condition"></select></label>
+        <label class="f">Engine size (L)<input id="pf_engine" type="number" step="0.1" min="0" max="9" placeholder="e.g. 1.6"></label>
+        <details class="spec-details full" id="pfSpecDetails">
+          <summary>Specification &amp; running details <span class="hint" style="display:inline">(optional — blanks are auto-filled so your ad stays fully filterable)</span></summary>
+          <div class="form-grid">
+            <label class="f">Seats<input id="pf_seats" type="number" min="1" max="9"></label>
+            <label class="f">Doors<select id="pf_doors"><option value="">Auto</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+            <label class="f">Power (bhp)<input id="pf_bhp" type="number" min="20" max="1200"></label>
+            <label class="f">Drivetrain<select id="pf_drv"><option value="">Auto</option><option>FWD</option><option>RWD</option><option>AWD</option></select></label>
+            <label class="f">Annual tax (£)<input id="pf_tax" type="number" min="0" step="5"></label>
+            <label class="f">Insurance group<input id="pf_insr" type="number" min="1" max="50"></label>
+            <label class="f">Fuel economy (MPG)<input id="pf_mpg" type="number" min="1"></label>
+            <label class="f">CO₂ (g/km)<input id="pf_co2" type="number" min="0"></label>
+            <label class="f">ULEZ<select id="pf_ulez"><option value="">Unknown</option><option value="yes">Compliant</option><option value="no">Not compliant</option></select></label>
+            <label class="f">Keys<select id="pf_keys"><option value="">Auto</option><option value="1">1</option><option value="2">2</option><option value="3">3+</option></select></label>
+            <label class="f">Safety rating<select id="pf_rate"><option value="">Unknown</option><option value="5">5★</option><option value="4">4★</option><option value="3">3★</option></select></label>
+            <label class="f chk"><input type="checkbox" id="pf_mot" checked> Has MOT</label>
+            <label class="f chk"><input type="checkbox" id="pf_imp"> Imported</label>
+            <label class="f">Damage category<select id="pf_cat"><option value="">Auto</option><option value="none">None</option><option value="N">Cat N</option><option value="S">Cat S</option><option value="C">Cat C</option><option value="D">Cat D</option></select></label>
+            <label class="f full">Features<span class="chk-row">
+              <label><input type="checkbox" name="pf_feat" value="CarPlay"> CarPlay</label>
+              <label><input type="checkbox" name="pf_feat" value="Bluetooth"> Bluetooth</label>
+              <label><input type="checkbox" name="pf_feat" value="Leather seats"> Leather seats</label>
+              <label><input type="checkbox" name="pf_feat" value="Wheelchair access"> Wheelchair access</label>
+            </span></label>
+            <label class="f">Towing braked (kg)<input id="pf_towB" type="number" min="0" step="50"></label>
+            <label class="f">Towing unbraked (kg)<input id="pf_towU" type="number" min="0" step="50"></label>
+            <label class="f">Seller / dealer type<select id="pf_dT"><option value="">Auto</option><option>Private seller</option><option>Independent dealer</option><option>Franchise dealer</option><option>Specialist</option></select></label>
+            <label class="f chk"><input type="checkbox" id="pf_px"> Part-exchange available</label>
+            <div class="full" id="pfEvWrap" hidden>
+              <b class="hint" style="font-size:12px">Electric &amp; hybrid extras</b>
+              <div class="form-grid">
+                <label class="f">EV range (mi)<input id="pf_evR" type="number" min="1"></label>
+                <label class="f">Fast charge (min)<input id="pf_evMin" type="number" min="5" step="5"></label>
+                <label class="f chk"><input type="checkbox" id="pf_leased"> Leased battery</label>
+                <label class="f chk"><input type="checkbox" id="pf_bwarr"> Battery warranty</label>
+              </div>
+            </div>
+            <label class="f full">Running status<select id="pf_run">
+              <option value="auto">Auto-detect from my wording (recommended)</option>
+              <option value="running">Running</option>
+              <option value="repairs">Spares &amp; Repairs</option>
+              <option value="nonstarter">Non Starter</option>
+            </select><span class="hint">Pick <b>Spares &amp; Repairs</b> or <b>Non Starter</b> explicitly and your choice always wins; leave it on auto-detect and we scan your wording as a backstop.</span></label>
+          </div>
+        </details>
         <label class="f">Postcode<input id="pf_postcode" maxlength="10" placeholder="e.g. M1 1AE"></label>
         <label class="f full">Description<textarea id="pf_desc" placeholder="Give your car a bit of a story…"></textarea></label>
         <div class="form-err" id="postErr"></div>
@@ -472,6 +527,41 @@ const DESC_PARTS = [
   'Selling due to company car change','Lovely example, no faults'
 ];
 
+/* ---------- PoC Rev 6: running-state classifier (strong phrase list, NOT an LLM) ----------
+   The PoC is a static single-file app (ADR-0001) with no backend/API keys, so an LLM is not
+   viable here; classification is a deterministic, offline, client-side phrase list applied to
+   title + description — decision recorded in ADR-0006. An LLM remains the documented
+   production enhancement path (server-side). Precedence: Non Starter > Spares & Repairs > Running. */
+const NONSTARTER_PHRASES = [
+  'non starter','non-starter','nonstarter','non runner','non-runner',"won't start","wont start",
+  'will not start',"doesn't start",'does not start',"don't start",'do not start','no start',
+  "turns over but won't",'turns over but does not','engine seized','seized engine','seized up',
+  'needs a new engine','needs new engine','blown engine','engine dead','not running',
+  'does not run',"doesn't run",'no compression','head gasket gone','timing belt snapped',
+  'cam belt snapped','gearbox gone'
+];
+const REPAIRS_PHRASES = [
+  'spares or repairs','spares and repairs','spares & repairs','for spares','spares only',
+  'breaking for parts','breaking vehicle','for parts','parts only','repair project',
+  'project car','barn find','restoration project','needs repair','requires repair',
+  'sell for parts','salvage','damaged repairable',"mechanic's special"
+];
+function phraseHit(text,phrases){
+  const t=String(text||'').toLowerCase();
+  for(let i=0;i<phrases.length;i++){
+    const p=phrases[i].replace(/-/g,'[- ]').replace(/ /g,'\\s+').replace(/'/g,"['’]");
+    if(new RegExp('(^|[^a-z0-9])'+p+'($|[^a-z0-9])').test(t)) return true;
+  }
+  return false;
+}
+function runningStatus(title,desc,condition){
+  const t=String(title||'')+' '+String(desc||'');
+  if(phraseHit(t,NONSTARTER_PHRASES)) return 'nonstarter';
+  if(phraseHit(t,REPAIRS_PHRASES)) return 'repairs';
+  if(String(condition||'')==='For parts') return 'repairs';
+  return 'running';
+}
+
 /* ---------- Deterministic RNG (same dataset on every load) ---------- */
 function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 const rnd = mulberry32(20260819);
@@ -495,10 +585,11 @@ function distMiles(a,b){
   return Math.round(2*R*Math.asin(Math.sqrt(s)));
 }
 /* ---------- Seed dataset generation ---------- */
-function makeAttrs(rng, body, fuel, year){
+function makeAttrs(rng, body, fuel, year, o){
+  o=o||{};
   const E=fuel==='Electric', H=fuel==='Hybrid', age=Math.max(0,CURRENT_YEAR-year);
   const big=body==='SUV'||body==='Estate';
-  return {
+  const a={
     seats: body==='Convertible'?2:(body==='Coupe'?(rng()<0.5?2:4):5),
     bhp: Math.max(60, Math.round((95+rng()*135)/10)*10),
     drivetrain: rng()<0.55?'FWD':(rng()<0.85?'RWD':'AWD'),
@@ -527,6 +618,11 @@ function makeAttrs(rng, body, fuel, year){
     reduced: rng()<0.25,
     sold: rng()<0.05
   };
+  /* PoC Rev 6: optional user-supplied overrides from the post-an-ad form — any key the
+     seller filled wins over the derived default so every ad stays fully filterable. */
+  Object.keys(o).forEach(function(k){ if(o[k]!=null) a[k]=o[k]; });
+  a.run = o.run || 'running';
+  return a;
 }
 function makeSeedListings(count){
   const out=[]; const makes=Object.keys(MAKES);
@@ -563,14 +659,19 @@ function makeSeedListings(count){
     const lat=region.lat+(rnd()-0.5)*0.28, lng=region.lng+(rnd()-0.5)*0.28;
 
     const trim=pick(TRIMS);
-    const title=year+' '+make+' '+model+(trim?' '+trim:'');
-    const description=pick(DESC_PARTS)+'. '+make+' '+model+' '+year+' in '+colour.toLowerCase()+' with '+mileage.toLocaleString('en-GB')+' miles'+(engine!=='—'?', '+engine+'-litre':'')+', '+fuel.toLowerCase()+' '+gearbox.toLowerCase()+'. '+pick(DESC_PARTS)+'.';
+    let title=year+' '+make+' '+model+(trim?' '+trim:'');
+    let con=condition;
+    let description=pick(DESC_PARTS)+'. '+make+' '+model+' '+year+' in '+colour.toLowerCase()+' with '+mileage.toLocaleString('en-GB')+' miles'+(engine!=='—'?', '+engine+'-litre':'')+', '+fuel.toLowerCase()+' '+gearbox.toLowerCase()+'. '+pick(DESC_PARTS)+'.';
+    /* PoC Rev 6: deterministic spares / non-runner pocket so the new running-state filters
+       demo non-empty against the seeded catalogue (index-based = deterministic). */
+    if(i%53===5){ con='For parts'; title+=' Spares or Repairs'; description+=' Selling as spares or repairs — needs repair, priced to clear.'; price=Math.round(Math.max(250,price*0.35)/50)*50; }
+    else if(i%71===3){ title+=' Non Runner'; description+=' Been off the road a while — engine turns over but won\'t start, sold exactly as seen.'; price=Math.round(Math.max(200,price*0.4)/50)*50; }
 
     const id=(source==='pine_it_native'?'pine-':source==='gumtree'?'gmt-':source==='facebook_marketplace'?'fbm-':source==='autotrader'?'atr-':'mct-')+i;
     out.push({
       id, source, title, description,
-      vehicle:{ make, model, year, mileage, fuel, gearbox, body, doors, engineSize:engine, colour, condition },
-      attrs: makeAttrs(rnd, body, fuel, year),
+      vehicle:{ make, model, year, mileage, fuel, gearbox, body, doors, engineSize:engine, colour, condition:con },
+      attrs:(function(){ const a=makeAttrs(rnd, body, fuel, year); a.run=runningStatus(title,description,con); return a; })(),
       price:{ amount:price, currency:'GBP' },
       location:{ city:region.name, postcode, lat, lng },
       contact:{ mode:contact, outboundUrl: src.url?src.url(id):null },
@@ -625,6 +726,7 @@ const REAL_EXAMPLES = [
     status:{sold:false,featured:false,postedAt:'2026-08-22T10:00:00Z'}, realListing:true }
 ].map(function(o){
   o.attrs = makeAttrs(_rngReal, o.vehicle.body, o.vehicle.fuel, o.vehicle.year);
+  o.attrs.run = o.attrs.run && o.attrs.run!=='running' ? o.attrs.run : runningStatus(o.title,o.description,o.vehicle.condition);
   o.status = o.status || {sold:false,featured:false,postedAt:'2026-08-20T10:00:00Z'};
   o.contact = { mode: SOURCE_MAP[o.source].contact, outboundUrl: o.homeUrl };
   return o;
@@ -668,6 +770,8 @@ const FACET_DEFS = [
   { key:'doors',    label:'Doors',       type:'multi', options:[2,3,4,5] }
 ];
 const ATTR_FACETS=[
+  {k:'srr',sec:'Condition & running',label:'Spares & Repairs',e:['Show Spares & Repairs'],special:'srr'},
+  {k:'ns',sec:'Condition & running',label:'Non Starter',e:['Show Non Starters'],special:'ns'},
   {k:'tax',sec:'Running costs',label:'Annual road tax',b:[[0,150,'Up to £150'],[150,300,'£150–£300'],[300,450,'£300–£450'],[450,99999,'Over £450']],v:l=>l.attrs.tax},
   {k:'insr',sec:'Running costs',label:'Insurance group',b:[[1,20,'Group 1–20'],[21,30,'Group 21–30'],[31,40,'Group 31–40'],[41,50,'Group 41–50']],v:l=>l.attrs.insr},
   {k:'mpg',sec:'Running costs',label:'Fuel economy',b:[[24,35,'Up to 35 MPG'],[35,45,'35–45 MPG'],[45,55,'45–55 MPG'],[55,99,'Over 55 MPG']],v:l=>l.attrs.mpg},
@@ -729,6 +833,11 @@ function matches(l, f){
       if(!set.has(String(val))) return false;
     }
   }
+  /* PoC Rev 6: running-state gate — default view hides spares/non-starters until surfaced
+     by their filters (explicit seller selection AND auto-detected wording both land here). */
+  const run=runOf(l);
+  if(run==='nonstarter'){ if(!(f.ns&&f.ns.size)) return false; }
+  else if(run==='repairs'){ if(!(f.srr&&f.srr.size)) return false; }
   if(state.postcode && state.radius>0){
     const d=distMiles(l.location, postcodeCoord(state.postcode));
     if(d==null || d>state.radius) return false;
@@ -739,6 +848,8 @@ function attrMatch(l,f){
   for(let i=0;i<ATTR_FACETS.length;i++){
     const F=ATTR_FACETS[i], set=f[F.k];
     if(!set||!set.size) continue;
+    /* srr/ns are gated in matches() itself (default view = running only), skip generic logic */
+    if(F.special==='srr'||F.special==='ns') continue;
     const val=F.v(l);
     if(F.sp==='usage'){
       const u=l.attrs.usage; let ok=true;
@@ -878,6 +989,18 @@ function openCompetitor(src, url){
   }
 }
 function repTag(l){ return l.realListing ? '<span class="rep-tag">Representative image</span>' : ''; }
+/* PoC Rev 6: running-state helpers — legacy localStorage ads without attrs.run are
+   classified on the fly by the same phrase list, so old saved ads stay correct. */
+function runOf(l){
+  if(l.attrs && l.attrs.run) return l.attrs.run;
+  return runningStatus(l.title,l.description,l.vehicle&&l.vehicle.condition);
+}
+function runBadge(l){
+  const r=runOf(l);
+  if(r==='repairs') return '<span class="run-badge rb-rep" title="Spares or Repairs">Spares &amp; Repairs</span>';
+  if(r==='nonstarter') return '<span class="run-badge rb-ns" title="Non starter">Non Starter</span>';
+  return '';
+}
 function scMeta(v){ if(!v) return ''; return [fmtNum(v.mileage)+' mi',v.fuel,v.gearbox,v.body].filter(x=>x!=null&&x!=='').map(x=>'<span>'+esc(x)+'</span>').join(''); }
 function renderShowcase(){
   const el=$('#showcase'); if(!el) return;
@@ -901,6 +1024,7 @@ function renderShowcase(){
 }
 function card(l){
   const s=SOURCE_MAP[l.source], v=l.vehicle;
+  const rb=runBadge(l);
   const c=state.postcode?distMiles(l.location,postcodeCoord(state.postcode)):null;
   const loc=(c!=null&&c<4000)?(l.location.city+' · '+c+' mi away'):l.location.city;
   const meta=[fmtNum(v.mileage)+' mi',v.fuel,v.gearbox,v.body].map(x=>'<span>'+esc(x)+'</span>').join('');
@@ -910,7 +1034,7 @@ function card(l){
     '<div class="body">'+
       '<h3 data-view="'+l.id+'">'+esc(l.title)+'</h3>'+
       '<div class="price">'+fmtCur(l.price.amount)+'</div>'+
-      '<div class="meta">'+meta+'</div>'+
+      '<div class="meta">'+rb+meta+'</div>'+
       '<div class="loc">📍 '+esc(loc)+'</div>'+
       '<div class="actions">'+actionFor(l)+'<button class="link-view" type="button" data-view="'+l.id+'">View</button></div>'+
     '</div></article>';
@@ -1160,6 +1284,13 @@ function wire(){
   $('#btnFilterToggle').addEventListener('click',()=>document.body.classList.toggle('filters-open'));
   $('#btnApplyFilters').addEventListener('click',()=>document.body.classList.remove('filters-open'));
   const pfYearEl=$('#pf_year'); if(pfYearEl){ pfYearEl.min=YEAR_MIN; pfYearEl.max=CURRENT_YEAR; }
+  /* PoC Rev 6: show EV/hybrid extra fields only when the seller picks Electric or Hybrid */
+  const pfFuel=$('#pf_fuel'), pfEvWrap=$('#pfEvWrap');
+  if(pfFuel&&pfEvWrap){
+    const evToggle=function(){ pfEvWrap.hidden=!(pfFuel.value==='Electric'||pfFuel.value==='Hybrid'); };
+    pfFuel.addEventListener('change',evToggle);
+    evToggle();
+  }
   $('#btnClearAll').addEventListener('click',resetFilters);
   $('#btnEmptyReset').addEventListener('click',resetFilters);
   $('#searchInput').addEventListener('input',debounce(function(e){
@@ -1234,13 +1365,53 @@ function submitPost(e){
   else if(!year||year<YEAR_MIN||year>CURRENT_YEAR)msg='Enter a year between '+YEAR_MIN+' and '+CURRENT_YEAR+'.';
   else if(!price||price<100)msg='Enter a realistic price (min £100).';
   if(msg){ err.textContent=msg; err.classList.add('show'); return; }
+  /* PoC Rev 6: collect the optional "Specification & running details" section. Any field the
+     seller left blank falls through to makeAttrs' deterministic defaults, so every posted ad
+     stays fully filterable by the facet engine. An explicit running-status selection always
+     wins over the phrase-list classifier ('auto' defers to it). */
+  const num=v=>{ const x=parseFloat(v); return isFinite(x)?x:null; };
+  const engineRaw=$('#pf_engine').value.trim();
+  const doorsSel=$('#pf_doors').value;
+  const ov={};
+  let n;
+  if((n=num($('#pf_seats').value))!=null)ov.seats=Math.round(n);
+  if((n=num($('#pf_bhp').value))!=null)ov.bhp=Math.round(n);
+  if($('#pf_drv').value)ov.drivetrain=$('#pf_drv').value;
+  if((n=num($('#pf_tax').value))!=null)ov.tax=Math.round(n);
+  if((n=num($('#pf_insr').value))!=null)ov.insr=Math.round(n);
+  if((n=num($('#pf_mpg').value))!=null)ov.mpg=Math.round(n);
+  if((n=num($('#pf_co2').value))!=null)ov.co2=Math.round(n);
+  if($('#pf_ulez').value)ov.ulez=$('#pf_ulez').value==='yes';
+  if((n=num($('#pf_keys').value))!=null)ov.keys=Math.round(n);
+  if((n=num($('#pf_rate').value))!=null)ov.rate=Math.round(n);
+  ov.mot=$('#pf_mot').checked;
+  if($('#pf_imp').checked)ov.imported=true;
+  if($('#pf_cat').value)ov.cat=$('#pf_cat').value;
+  ov.features=Array.prototype.slice.call(document.querySelectorAll('input[name="pf_feat"]:checked')).map(c=>c.value);
+  if((n=num($('#pf_towB').value))!=null)ov.towB=Math.round(n);
+  if((n=num($('#pf_towU').value))!=null)ov.towU=Math.round(n);
+  if(fuel==='Electric'||fuel==='Hybrid'){
+    if((n=num($('#pf_evR').value))!=null)ov.evR=Math.round(n);
+    if((n=num($('#pf_evMin').value))!=null)ov.evMin=Math.round(n);
+    if($('#pf_leased').checked)ov.leased=true;
+    if($('#pf_bwarr').checked)ov.bwarr=true;
+  }
+  if($('#pf_dT').value)ov.dType=$('#pf_dT').value;
+  if($('#pf_px').checked)ov.partEx=true;
+  const runSel=$('#pf_run').value;
   const coord=postcodeCoord(postcode||'');
+  const title=year+' '+make+' '+model;
   const l={
     id:'my-'+Date.now(), source:'pine_it_native',
-    title:year+' '+make+' '+model,
+    title:title,
     description: desc || (make+' '+model+', '+year+'. Listed free on Pine It.'),
-    vehicle:{ make, model, year, mileage, fuel, gearbox, body, doors:(body==='Convertible'?2:5), engineSize:null, colour, condition },
-    attrs: makeAttrs(()=>Math.random(), body, fuel, year),
+    vehicle:{ make, model, year, mileage, fuel, gearbox, body,
+      doors:(doorsSel!==''?+doorsSel:(body==='Convertible'?2:5)),
+      engineSize:engineRaw||null, colour, condition },
+    attrs:Object.assign(
+      makeAttrs(function(){ return Math.random(); }, body, fuel, year, ov),
+      { run: runSel==='auto' ? runningStatus(title,desc,condition) : runSel }
+    ),
     price:{ amount:price, currency:'GBP' },
     location:{ city: postcode?'Your area':'Local', postcode, lat: coord.lat, lng: coord.lng },
     contact:{ mode:'native', outboundUrl:null },
@@ -1289,6 +1460,41 @@ function submitLead(e){
 function spec(k,v){
   return '<div class="spec"><b>'+esc(k)+'</b><span>'+esc(v)+'</span></div>';
 }
+/* PoC Rev 6: full spec sheet in the detail view — the ad now shows every field that the
+   filter engine can search on (posted ads carry exactly what their seller entered). */
+function attrRows(l){
+  const a=l.attrs||{}, v=l.vehicle;
+  const row=(k,val)=>{ return (val===''||val==null)?'':spec(k,val); };
+  let h='';
+  h+=row('Seats',a.seats);
+  h+=row('Power',a.bhp?a.bhp+' bhp':'');
+  h+=row('Drivetrain',a.drivetrain);
+  h+=row('Annual road tax',a.tax!=null?fmtGBP(a.tax):'');
+  h+=row('Insurance group',a.insr?'Group '+a.insr:'');
+  h+=row('Fuel economy',a.mpg?a.mpg+' mpg':'');
+  h+=row('CO₂ emissions',a.co2?a.co2+' g/km':'');
+  h+=row('ULEZ',a.ulez==null?'':(a.ulez?'Compliant':'Not compliant'));
+  h+=row('Keys',a.keys?(a.keys>=3?'3+ keys':a.keys+(a.keys>1?' keys':' key')):'');
+  h+=row('Safety rating',a.rate?a.rate+'★':'');
+  h+=row('MOT',a.mot==null?'':(a.mot?'Has MOT':'No MOT'));
+  h+=row('Imported',a.imported==null?'':(a.imported?'Yes':'No'));
+  h+=row('History',(a.cat&&a.cat!=='none')?'Cat '+a.cat:'No damage recorded');
+  h+=row('Features',(a.features&&a.features.length)?a.features.join(', '):'');
+  h+=row('Towing braked',a.towB?a.towB+' kg':'');
+  h+=row('Towing unbraked',a.towU?a.towU+' kg':'');
+  if(v.fuel==='Electric'||v.fuel==='Hybrid'){
+    h+=row('EV range',a.evR?a.evR+' mi':'');
+    h+=row('Fast charge',a.evMin?a.evMin+' min':'');
+    h+=row('Battery',a.leased?'Leased':'Owned');
+    h+=row('Battery warranty',a.bwarr?'Included':'Not stated');
+  }
+  h+=row('Seller type',a.dType);
+  h+=row('Dealer rating',a.dRating?a.dRating+'★':'');
+  h+=row('Part-exchange',a.partEx?'Available':'');
+  const r=runOf(l);
+  if(r!=='running') h+=spec('Running status',r==='repairs'?'Spares & Repairs':'Non Starter');
+  return h?'<div class="spec-grid" style="margin-top:8px">'+h+'</div>':'';
+}
 function openDetail(id){
   const l=findL(id); if(!l) return;
   const s=SOURCE_MAP[l.source], v=l.vehicle;
@@ -1303,11 +1509,12 @@ function openDetail(id){
     spec('Location',loc)+spec('Postcode',l.location.postcode||'—')+
   '</div>';
   $('#detailBody').innerHTML=
-    '<div class="sub b"><span class="pill on" style="background:'+s.colour+'">via '+esc(s.short)+'</span>'+(l.status.featured?'<span class="flag">Featured</span>':'')+'</div>'+
+    '<div class="sub b"><span class="pill on" style="background:'+s.colour+'">via '+esc(s.short)+'</span>'+(l.status.featured?'<span class="flag">Featured</span>':'')+runBadge(l)+'</div>'+
     svgCar(l)+
     '<div class="detail-title"><h2>'+esc(l.title)+'</h2></div>'+
     '<div class="detail-price">'+fmtCur(l.price.amount)+'</div>'+
     specs+
+    attrRows(l)+
     '<p class="detail-desc">'+esc(l.description)+'</p>'+
     '<div class="modal-actions">'+actionFor(l)+'<button type="button" class="btn ghost" data-close>Close</button></div>';
   openOverlay('overlayDetail');

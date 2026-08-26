@@ -9,7 +9,7 @@ Pine It is a UK-focused, cars-first marketplace exploring a better alternative t
 - **Cheap, low-barrier selling** — post an ad in under a minute, no listing fees (unlike AutoTrader).
 - **One feed, every platform** — harvests car ads from other platforms (Gumtree, Facebook Marketplace, AutoTrader, motors.co.uk) and displays them mixed into a single searchable feed with clear source attribution, affiliate-ready outbound links, and a lead/broker path where sellers aren't directly reachable.
 
-This repository contains the **v0.2.4 proof-of-concept (PoC Revision 5)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
+This repository contains the **v0.3.0 proof-of-concept (PoC Revision 6)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
 
 ---
 
@@ -34,6 +34,7 @@ https://<your-user>.github.io/<your-repo>/
 - **Platform as a filter** — show all sources, show only selected, exclude specific platforms, or **hide Native** to see purely harvested listings. Every platform is a first-class facet backed by an extensible source registry.
 - **Attribution-first harvesting** — harvested cards show a "via [platform]" badge and open an affiliate-ready outbound link in a new tab; where the seller isn't directly reachable the card offers **"Request via Pine It"** (broker/lead flow).
 - **Post an ad** — a full car-ad form persisted to browser `localStorage`; your ad appears live in the feed as **Native** and survives reloads.
+- **Posting parity (Rev 6)** — an optional collapsible **"Specification & running details"** section exposes every field the filter engine can search on (seats, doors, engine size, bhp, drivetrain, tax, insurance group, MPG, CO₂, ULEZ, keys, safety rating, MOT/imported, damage category, features, towing weights, seller type, part-exchange + EV/hybrid extras when relevant); blanks are auto-filled so any ad stays fully filterable. A **Running status selector** lets sellers explicitly declare **Spares & Repairs** or **Non Starter** (explicit choice always wins; auto-detect is the backstop).
 - **Listing details** — full spec sheet, description and per-listing action (outbound link or Pine It lead).
 - **State preservation** — filters persist to the URL hash, so a results view can be bookmarked/shared; refresh keeps your filters.
 - **Collapse all / Expand all** — one-tap buttons in the filter-pane header collapse or expand **every** filter group (location, platform, ranges, multi-selects, sectioned groups) at once.
