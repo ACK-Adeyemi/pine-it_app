@@ -108,4 +108,4 @@ pine-it_app/
 
 ## Status
 
-**v0.2.4 (PoC · Revision 5)** — see [`CHANGELOG.md`](CHANGELOG.md). Real-example deep links are verified live single-ad pages for motors.co.uk, AutoTrader, Gumtree **and Cazoo** (`cars-for-sale/79613297`, owner-supplied); Facebook Marketplace links to its live area with an on-card login-gate explanation.
+**v0.2.4 (PoC · Revision 5)** — see [`CHANGELOG.md`](CHANGELOG.md). Real-example deep links are verified live single-ad pages for motors.co.uk, AutoTrader, Gumtree **and Cazoo** (`cars-for-sale/79613297`, owner-supplied URL + figures); Facebook Marketplace links to its live area with an on-card login-gate explanation.
