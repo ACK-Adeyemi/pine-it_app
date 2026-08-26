@@ -36,7 +36,20 @@ The screenshot idea is legally a non-runner. In *Trader Corp. v. CarGurus*, 2017
 5. **Mobile app routing.** Each source registers an `appScheme` (e.g. `autotrader://`, `gumtree://`, `fb://marketplace`, `cazoo://`, `motors://`). The "View on [platform]" action runs `openCompetitor()`: on a coarse-pointer (mobile) device it attempts the app scheme and falls back to the https URL (a Universal/App Link) — installed app wins, otherwise the default browser. Desktop just opens the https URL in a new tab.
 6. **Production is a licensed-feed aggregator, not a scraper.** Row 2 of `docs/PoC-PRODUCTION-READINESS.md` moves from MOCK to *real demo examples + licensed-feed plan*. The real paths are official feeds/APIs — AutoTrader Connect (or a direct data agreement) and the Motors/Gumtree dealer DMS stock feeds — plus an opt-in cross-post for Facebook. Scraping (including hotlinking) is out of scope in every case.
 
-## Alternatives considered
+## Amendment (v0.2.4, 2026-08-26) — verified single-ad PDP deep links
+
+User feedback on v0.2.3 identified three defects, all fixed:
+
+1. **NaN / undefined in the showcase meta row.** `renderShowcase()` passed the whole listing object into `scMeta(v)`, which expects a `vehicle` — so `fmtNum(undefined)` rendered "NaN mi" and missing specs rendered literally as "undefined". Fixed by passing `l.vehicle`, plus a hardened `fmtNum` (`null`/`undefined`/non-finite → em-dash) and an empty-safe `scMeta`.
+2. **Deep links opened category/search pages (PLPs), not advert pages (PDPs).** Every homeUrl now points at a **verified live single-ad page**, captured and cross-checked against the card's facts at build time:
+   - motors.co.uk → `https://www.motors.co.uk/car-79576221/` — 2003 Vauxhall Corsa 1.2i 16v Club 5dr, £1,295, Petrol/Manual, 36,951 mi (EASICARS ENHANCED dealer).
+   - AutoTrader → `https://www.autotrader.co.uk/car-details/202606012893471` — 2010 Vauxhall Corsa 1.2i 16v SE 5dr (a/c), £1,995, 62,300 mi, from BM Car Sales' server-rendered retailer stock (facts read straight out of the SSR vehicle cards).
+   - Gumtree → `/p/ford/2019-ford-fiesta-1.0-ecoboost-140-st-line-…/1802012169` — verified live via its schema.org `Product/Car` structured data (2019 Fiesta ST-Line, £5,395, Lichfield). The previously-linked ID.4 ad had expired (410).
+   - Cazoo and Facebook Marketplace remain **area-level links with explicit on-card notes**: Cazoo serves a bot-checkpoint (Vercel) to every automated request, so no PDP can be verified without fabricating a stock id — which we will not do; FB items are login-gated. Both cards carry an honest inline note; per-car Cazoo URLs arrive with feed access.
+3. **"Motors.co.uk link opens Cazoo".** Root cause: we had linked a *category* URL that now redirects into the Cazoo-branded estate. With the real motors.co.uk advert page (`car-79576221`) the browser stays on **motors.co.uk** (verified: effective URL unchanged); note that since June 2024 the trading name across that estate is Cazoo, so the *page branding* may say Cazoo while the domain stays motors.co.uk — recorded here rather than hidden.
+
+Showcase rendering also gained a generic `linkNote` field (replacing the Facebook-only hack) used for both the Cazoo and Facebook disclaimers.
+
 
 | # | Alternative | Why rejected / deferred |
 |---|---|---|

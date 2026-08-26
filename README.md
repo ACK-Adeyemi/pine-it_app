@@ -1,4 +1,4 @@
-# Pine It — v0.2.3 PoC (Revision 5)
+# Pine It — v0.2.4 PoC (Revision 5)
 
 > **Pine It** — *"sticky notes for the car market."* A marketplace with the strongest filter engine on the market: one search, every car, every platform.
 
@@ -9,7 +9,7 @@ Pine It is a UK-focused, cars-first marketplace exploring a better alternative t
 - **Cheap, low-barrier selling** — post an ad in under a minute, no listing fees (unlike AutoTrader).
 - **One feed, every platform** — harvests car ads from other platforms (Gumtree, Facebook Marketplace, AutoTrader, motors.co.uk) and displays them mixed into a single searchable feed with clear source attribution, affiliate-ready outbound links, and a lead/broker path where sellers aren't directly reachable.
 
-This repository contains the **v0.2.3 proof-of-concept (PoC Revision 5)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
+This repository contains the **v0.2.4 proof-of-concept (PoC Revision 5)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
 
 ---
 
@@ -108,4 +108,4 @@ pine-it_app/
 
 ## Status
 
-**v0.2.3 (PoC · Revision 5)** — see [`CHANGELOG.md`](CHANGELOG.md).
+**v0.2.4 (PoC · Revision 5)** — see [`CHANGELOG.md`](CHANGELOG.md). Real-example deep links are verified live single-ad pages for motors.co.uk / AutoTrader / Gumtree; Cazoo and Facebook Marketplace link to their live stock areas with on-card explanations (bot-gate / login-wall).

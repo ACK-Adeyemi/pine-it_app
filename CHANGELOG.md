@@ -3,6 +3,16 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.4] — 2026-08-26
+
+### Fixed
+
+- **PoC Revision 5 remediation** (user-reported bugs in v0.2.3):
+  - **NaN / undefined in showcase meta** — `renderShowcase()` passed the listing object where `scMeta()` expects a `vehicle`; now passes `l.vehicle`. `fmtNum` hardened (never renders "NaN"/"undefined"; returns "—" for missing values) and `scMeta` skips empty parts.
+  - **Links opened listing/search pages instead of advert (PDP) pages** — all competitor deep-links replaced with verified live single-ad URLs captured at build time: motors.co.uk `car-79576221` (2003 Corsa Club, £1,295), AutoTrader `car-details/202606012893471` (2010 Corsa SE, £1,995, BM Car Sales Bedford), Gumtree `p/ford/2019-ford-fiesta-1.0-ecoboost-140-st-line…/1802012169` (verified via its structured data; replaces the expired ID.4 ad). Card facts updated to match each real ad exactly.
+  - **Motors.co.uk link opened Cazoo** — caused by linking a category URL that redirects into the Cazoo-branded estate; the real motors.co.uk advert page keeps the browser on motors.co.uk (page branding may say Cazoo — same company since Jun 2024; documented in ADR-0005).
+  - Showcase gained a generic `linkNote`; Cazoo still points to its live stock list (its bot-checkpoint makes PDP verification impossible without inventing an id) and Facebook stays login-gated — both stated on-card.
+
 ## [0.2.3] — 2026-08-25
 
 ### Added

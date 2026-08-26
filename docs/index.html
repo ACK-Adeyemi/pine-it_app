@@ -586,38 +586,40 @@ const seeds = makeSeedListings(700);
    never the competitor's copyrighted photo. See ADR-0005 for the production image-licensing policy. */
 const _rngReal = mulberry32(5021);
 const REAL_EXAMPLES = [
-  { id:'real-motors-fiesta', source:'motors_co_uk',
-    homeUrl:'https://www.motors.co.uk/used-cars/ford/fiesta/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
-    title:'2011 Ford Fiesta 1.25 Zetec 5dr',
-    description:'Live motors.co.uk dealer listing snapshot. Fiesta 1.25 Zetec, HPI cleared, dealer warranty offered. Real UK listing surfaced through Pine It.',
-    vehicle:{make:'Ford',model:'Fiesta',year:2011,mileage:71600,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:5,engineSize:1.2,colour:'Grey',condition:'Used'},
-    price:{amount:2495,currency:'GBP'}, location:{city:'Canvey Island',postcode:'SS8 0QD',lat:51.521,lng:0.589},
+  { id:'real-motors-corsa', source:'motors_co_uk',
+    homeUrl:'https://www.motors.co.uk/car-79576221/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
+    title:'2003 Vauxhall Corsa 1.2i 16v Club 5dr',
+    description:'Live motors.co.uk dealer advert snapshot (EASICARS ENHANCED, London UB2). 2003 Corsa 1.2i 16v Club, ULEZ compliant, HPI checked. Real UK listing surfaced through Pine It.',
+    vehicle:{make:'Vauxhall',model:'Corsa',year:2003,mileage:36951,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:5,engineSize:1.2,colour:'Grey',condition:'Used'},
+    price:{amount:1295,currency:'GBP'}, location:{city:'London (UB2)',postcode:'UB2',lat:51.507,lng:-0.353},
     status:{sold:false,featured:false,postedAt:'2026-08-20T10:00:00Z'}, realListing:true },
   { id:'real-autotrader-corsa', source:'autotrader',
-    homeUrl:'https://www.autotrader.co.uk/used-cars/vauxhall/corsa/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
-    title:'2012 Vauxhall Corsa 1.4i 16v Design (a/c)',
-    description:'Live AutoTrader listing snapshot from an independent dealer. Low-cost supermini, MOT leading, part-exchange welcome. Real UK listing car.',
-    vehicle:{make:'Vauxhall',model:'Corsa',year:2012,mileage:78600,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:3,engineSize:1.4,colour:'Silver',condition:'Used'},
-    price:{amount:1695,currency:'GBP'}, location:{city:'Leicester',postcode:'LE4 1AN',lat:52.655,lng:-1.15},
+    homeUrl:'https://www.autotrader.co.uk/car-details/202606012893471?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
+    title:'2010 Vauxhall Corsa 1.2i 16v SE 5dr (a/c)',
+    description:'Live AutoTrader advert snapshot from BM Car Sales, Bedford. 2010 Corsa 1.2i 16v SE with air-con, trade rating 4.6/5. Real UK listing surfaced through Pine It.',
+    vehicle:{make:'Vauxhall',model:'Corsa',year:2010,mileage:62300,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:5,engineSize:1.2,colour:'Grey',condition:'Used'},
+    price:{amount:1995,currency:'GBP'}, location:{city:'Bedford',postcode:'MK42 9AX',lat:52.128,lng:-0.489},
     status:{sold:false,featured:false,postedAt:'2026-08-21T10:00:00Z'}, realListing:true },
   { id:'real-cazoo-fiesta', source:'cazoo',
     homeUrl:'https://www.cazoo.co.uk/cars/ford/fiesta/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
     title:'2019 Ford Fiesta ST-Line 1.0 EcoBoost',
     description:'Live Cazoo example. Cazoo (a trading name of Motors.co.uk Ltd) sells certified used cars online — fully inspected, warrantied, delivered to your door.',
+    linkNote:'Cazoo blocks automated access from outside apps, so this opens their live Fiesta stock. We agree per-car feeds before launch.',
     vehicle:{make:'Ford',model:'Fiesta',year:2019,mileage:28600,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:5,engineSize:1.0,colour:'Black',condition:'Used'},
     price:{amount:12950,currency:'GBP'}, location:{city:'Peterborough',postcode:'PE2 1RM',lat:52.567,lng:-0.07},
     status:{sold:false,featured:false,postedAt:'2026-08-22T10:00:00Z'}, realListing:true },
-  { id:'real-gumtree-id4', source:'gumtree',
-    homeUrl:'https://www.gumtree.com/p/volkswagen/2022-volkswagen-id.4-id4-life-5dr-suv-electric-automatic/1515546970?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
-    title:'2022 Volkswagen ID.4 Life 5dr SUV (Electric)',
-    description:'Live Gumtree snapshot. VW ID.4 ID4 Life, single owner, 58kWh EV with charge cable. Real UK listing car surfaced through Pine It.',
-    vehicle:{make:'Volkswagen',model:'ID.4',year:2022,mileage:19400,fuel:'Electric',gearbox:'Automatic',body:'SUV',doors:5,engineSize:'—',colour:'White',condition:'Nearly new'},
-    price:{amount:24950,currency:'GBP'}, location:{city:'Derby',postcode:'DE1 1DL',lat:52.921,lng:-1.471},
+  { id:'real-gumtree-fiesta', source:'gumtree',
+    homeUrl:'https://www.gumtree.com/p/ford/2019-ford-fiesta-1.0-ecoboost-140-st-line-3dr-hatchback-petrol-manual/1802012169?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
+    title:'2019 Ford Fiesta 1.0 EcoBoost 140 ST-Line 3dr',
+    description:'Live Gumtree advert snapshot (Autotrade Lichfield). One owner from new, full service history, recent cambelt, bright red ST-Line. Real UK listing surfaced through Pine It.',
+    vehicle:{make:'Ford',model:'Fiesta',year:2019,mileage:97196,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:3,engineSize:1.0,colour:'Red',condition:'Used'},
+    price:{amount:5395,currency:'GBP'}, location:{city:'Lichfield',postcode:'WS13 6LR',lat:52.684,lng:-1.827},
     status:{sold:false,featured:false,postedAt:'2026-08-22T10:00:00Z'}, realListing:true },
   { id:'real-fb-astra', source:'facebook_marketplace',
     homeUrl:'https://www.facebook.com/marketplace/category/cars/?utm_source=pineit&utm_medium=referral&aff_id={AFF_ID}',
     title:'2018 Vauxhall Astra SRi Nav (Facebook Marketplace)',
     description:'Representative example of the kind of car listed on Facebook Marketplace. Individual Facebook Marketplace items sit behind a Facebook login, so Pine It surfaces them and deep-links to the Marketplace area.',
+    linkNote:'Facebook login required to open an individual item',
     vehicle:{make:'Vauxhall',model:'Astra',year:2018,mileage:45200,fuel:'Petrol',gearbox:'Manual',body:'Hatchback',doors:5,engineSize:1.4,colour:'Blue',condition:'Used'},
     price:{amount:7950,currency:'GBP'}, location:{city:'Nottingham',postcode:'NG1 1AA',lat:52.954,lng:-1.158},
     status:{sold:false,featured:false,postedAt:'2026-08-22T10:00:00Z'}, realListing:true }
@@ -815,7 +817,7 @@ function updateSortDirBtn(){
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmtGBP = n => '£'+Number(n).toLocaleString('en-GB');
-const fmtNum = n => Number(n).toLocaleString('en-GB');
+const fmtNum = n => { if(n==null||n==='') return '—'; if(typeof n==='number'&&isFinite(n)) return n.toLocaleString('en-GB'); const x=Number(n); return isFinite(x)?x.toLocaleString('en-GB'):'—'; };
 const numFmt = new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP',maximumFractionDigits:0});
 const fmtCur = n => numFmt.format(n);
 function timeAgo(iso){
@@ -876,7 +878,7 @@ function openCompetitor(src, url){
   }
 }
 function repTag(l){ return l.realListing ? '<span class="rep-tag">Representative image</span>' : ''; }
-function scMeta(v){ return [fmtNum(v.mileage)+' mi',v.fuel,v.gearbox,v.body].map(x=>'<span>'+esc(x)+'</span>').join(''); }
+function scMeta(v){ if(!v) return ''; return [fmtNum(v.mileage)+' mi',v.fuel,v.gearbox,v.body].filter(x=>x!=null&&x!=='').map(x=>'<span>'+esc(x)+'</span>').join(''); }
 function renderShowcase(){
   const el=$('#showcase'); if(!el) return;
   const items = seeds.filter(l=>l.realListing);
@@ -885,14 +887,14 @@ function renderShowcase(){
     '<span class="note">Real UK listings surfaced through Pine It · point-in-time snapshots</span></div>'+
     '<div class="showcase-grid">'+ items.map(function(l){
       const s=SOURCE_MAP[l.source];
-      const fb = l.id.indexOf('fb-')===0 ? '<div class="fb-note">Facebook login required to open an individual item</div>' : '';
+      const note = l.linkNote ? '<div class="fb-note">'+esc(l.linkNote)+'</div>' : '';
       return '<article class="showcase-card" data-id="'+l.id+'">'+
         '<div class="photo" data-view="'+l.id+'">'+svgCar(l)+pill(s)+'<span class="snap-tag">snapshot</span>'+repTag(l)+'</div>'+
         '<div class="body">'+
           '<h3 data-view="'+l.id+'">'+esc(l.title)+'</h3>'+
           '<div class="price">'+fmtCur(l.price.amount)+'</div>'+
-          '<div class="meta">'+scMeta(l)+'</div>'+
-          '<div class="loc">📍 '+esc(l.location.city)+'</div>'+fb+
+          '<div class="meta">'+scMeta(l.vehicle)+'</div>'+
+          '<div class="loc">📍 '+esc(l.location.city)+'</div>'+note+
           '<div class="actions"><button class="btn small" type="button" data-open="'+l.id+'">View on '+esc(s.short)+'</button></div>'+
         '</div></article>';
     }).join('') + '</div>';
