@@ -633,7 +633,12 @@ function makeSeedListings(count){
       : yearRoll<0.90 ? 1990+Math.floor(rnd()*17)
       : 1910+Math.floor(rnd()*80);
     const body=pick(BODY), fuel=pick(FUEL), gearbox=pick(GEARS);
-    const colour=pick(COLOURS), condition=pick(COND);
+    const colour=pick(COLOURS);
+    /* PoC Rev 6 fix: the base condition draw deliberately EXCLUDES 'For parts' — that value
+       is reserved for genuine spares/non-runner cars below. Letting the random 1-in-5
+       condition draw emit 'For parts' mislabelled ~20% of healthy seeded cars as
+       Spares & Repairs via the running-state classifier. */
+    let condition=pick(['New','Nearly new','Used','Good condition']);
     const r=rnd();
     const source = r<0.40?'pine_it_native': r<0.58?'gumtree': r<0.78?'facebook_marketplace': r<0.93?'autotrader':'motors_co_uk';
     const src=SOURCE_MAP[source];
