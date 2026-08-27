@@ -157,6 +157,57 @@ input.rng:focus{border-color:var(--pine)}
 .showcase-card .actions .btn{flex:1;white-space:nowrap}
 .rep-tag{position:absolute;bottom:6px;right:6px;font-size:9px;font-weight:800;letter-spacing:.04em;background:rgba(10,28,20,.72);color:#fff;padding:2px 6px;border-radius:999px}
 .snap-tag{position:absolute;top:6px;right:6px;font-size:9px;font-weight:800;color:#3b2c00;background:var(--amber);padding:2px 6px;border-radius:999px}
+
+/* ---------- PoC Rev 7: advertising banners, sponsored embeds ---------- */
+#adBanner{max-width:1280px;margin:12px auto 0;padding:0 20px;position:relative;z-index:30;box-shadow:none}
+.ad-navbanner{border-radius:14px;padding:10px 16px;display:flex;align-items:center;font-size:13.5px;font-weight:600;border:1px solid var(--line)}
+.ad-navbanner.tone-pine{background:var(--pine);border-color:var(--pine-700);color:#fff}
+.ad-navbanner.tone-dark{background:#10231b;border-color:#0a3a26;color:#eaf4ee}
+.ad-navbanner a{color:inherit;text-decoration:none;display:flex;gap:10px;align-items:center;width:100%}
+.ad-navbanner .ad-tag{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:2px 7px;border-radius:999px;flex:none}
+.ad-row{grid-column:1/-1}
+.ad-banner-inner{border-radius:16px;padding:16px 22px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;border:1px solid var(--line);box-shadow:0 1px 2px rgba(20,40,30,.05);height:100%}
+.ab-light{background:var(--surface)}
+.ab-dark{background:#10231b;border-color:#0a3a26;color:#eaf4ee}
+.ab-pine{background:var(--pine-700);border-color:var(--pine-700);color:#fff}
+.ad-banner-inner h3{margin:0;font-size:15px}
+.ad-banner-inner p{margin:0;font-size:13px;opacity:.82}
+.ad-grow{flex:1;min-width:220px}
+.ad-mini{font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;opacity:.65;margin-right:8px}
+.ad-banner-inner .btn.abt-dark{background:rgba(255,255,255,.12)}
+.card.sponsored .photo{display:flex;align-items:center;justify-content:center;aspect-ratio:16/10;cursor:default}
+.card.sponsored .photo:hover{transform:none;box-shadow:none;border-color:var(--line)}
+.sp-pine{background:linear-gradient(135deg,var(--pine),#0d5c39)}
+.sp-dark{background:linear-gradient(135deg,#15352a,#0a3a26)}
+.sp-plum{background:linear-gradient(135deg,#4a2d68,#2b1740)}
+.sp-copy{text-align:center;color:#fff;padding:16px 22px;width:100%}
+.sp-copy .glyph{font-size:34px;display:block;margin-bottom:6px}
+.sp-copy .big{font-size:16.5px;font-weight:800;letter-spacing:-.01em}
+.sp-copy .small{font-size:12px;opacity:.78;margin-top:5px}
+.sp-pill{position:absolute;top:10px;left:10px;z-index:1}
+.sponsored .body p{margin:0;font-size:12.5px;color:var(--ink-soft)}
+
+/* ---------- PoC Rev 7: admin console ---------- */
+.admin-tabs{display:flex;gap:6px;margin:14px 0 4px;flex-wrap:wrap}
+.admin-tab{cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--ink-soft)}
+.admin-tab:hover{border-color:var(--pine);color:var(--pine)}
+.admin-tab.on{background:var(--pine);border-color:var(--pine);color:#fff}
+.admin-pane{display:none}.admin-pane.on{display:block}
+.admin-config-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin-top:14px}
+.admin-config-grid .full{grid-column:1/-1}
+.admin-sect{font-size:13px;font-weight:800;color:var(--ink);display:block}
+.adm-list{display:flex;flex-direction:column;gap:8px;max-height:42vh;overflow:auto;margin-top:12px}
+.moderation-item{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px;display:flex;gap:10px;align-items:center}
+.moderation-item .grow{flex:1;min-width:0}
+.moderation-item b{display:block;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.moderation-item .meta{color:var(--ink-soft);font-size:12px}
+.status-pill{font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.03em;flex:none}
+.st-live{background:var(--pine-light);color:var(--pine-700)}
+.st-hidden{background:#fbeaea;color:#8f2d21}
+.st-blocked{background:#fbeaea;color:#8f2d21}
+.console-note{font-size:11.5px;color:var(--ink-soft);background:var(--pine-light);border:1px solid #c8e6d3;border-radius:10px;padding:9px 12px;margin-top:14px;line-height:1.5}
+.console-note code{font-size:10.5px;background:rgba(20,74,48,.08);padding:1px 5px;border-radius:5px}
+
 .empty{padding:54px 20px;text-align:center;border:2px dashed var(--line);border-radius:16px;background:var(--surface)}
 .empty .em{font-size:46px}
 .empty h3{margin:10px 0 6px}
@@ -247,7 +298,7 @@ body.no-scroll{overflow:hidden}
 </style>
 </head>
 <body>
-<div class="demo-strip">v0.2.1 PoC · Revision 3 — demo data. Imported listings are explanatory mocks; see docs/PoC-PRODUCTION-READINESS.md</div>
+<div class="demo-strip">v0.4.0 PoC · Revision 7 — demo data. Ad banners/sponsored slots are governed by an external config (docs/ad-config.json, ADR-0007); see docs/PoC-PRODUCTION-READINESS.md</div>
 <header id="topbar">
   <div class="topbar-inner">
     <button class="ico-btn" id="btnFilterToggle" aria-label="Open filters" title="Filters">
@@ -264,10 +315,13 @@ body.no-scroll{overflow:hidden}
     </div>
     <div class="header-actions">
       <button class="btn ghost small" id="btnActivity" type="button">My activity<span id="activityCount"></span></button>
+      <button class="btn ghost small" id="btnAdmin" type="button" title="Demo admin console — banners &amp; moderation">Admin</button>
       <button class="btn" id="btnPost" type="button">+ Post an ad</button>
     </div>
   </div>
 </header>
+
+<div id="adBanner" role="region" aria-label="Advertisement" hidden></div>
 
 <div class="app">
   <aside class="filters" id="filters" aria-label="Filters">
@@ -338,8 +392,8 @@ body.no-scroll{overflow:hidden}
 </div>
 
 <footer class="app-footer">
-  Pine It v0.3.0 PoC · Revision 6 · one search, every car, every platform<br>
-  <span class="fine">Demo data only — imported listings are mocked for concept validation. Images are placeholders. Built as a single static file for GitHub Pages.</span>
+  Pine It v0.4.0 PoC · Revision 7 · one search, every car, every platform<br>
+  <span class="fine">Demo data only — imported listings are mocked for concept validation. Ad content is configured externally via ad-config.json and the demo admin console (ADR-0007). Built as a single static file for GitHub Pages.</span>
 </footer>
 
 <div id="toasts" role="status" aria-live="polite"></div>
@@ -350,6 +404,7 @@ body.no-scroll{overflow:hidden}
     <p class="sub">No account needed. Your ad is stored on <b>this device</b> and appears instantly with a Native badge.</p>
     <form id="postForm" novalidate>
       <div class="form-grid">
+        <label class="f">Your name (optional)<input id="pf_name" placeholder="Shown for demo moderation"></label>
         <label class="f">Make<select id="pf_make" required></select></label>
         <label class="f">Model<input id="pf_model" required placeholder="e.g. Fiesta ST-Line"></label>
         <label class="f">Year<input id="pf_year" type="number" min="1910" max="2026" value="2019" required></label>
@@ -445,6 +500,59 @@ body.no-scroll{overflow:hidden}
   </div>
 </div>
 
+<div class="overlay" id="overlayAdmin" role="dialog" aria-modal="true" aria-labelledby="admTitle" hidden>
+  <div class="modal lg">
+    <button class="ico-btn closeX" data-close aria-label="Close">✕</button>
+    <h2 id="admTitle">Admin console</h2>
+    <p class="sub">Demo-grade management — PoC only, per ADR-0007. Nothing here leaves this device.</p>
+    <div class="admin-tabs" role="tablist" aria-label="Admin sections">
+      <button type="button" class="admin-tab on" data-tab="banners">Banners &amp; sponsored</button>
+      <button type="button" class="admin-tab" data-tab="ads">Ads moderation</button>
+      <button type="button" class="admin-tab" data-tab="accounts">Accounts moderation</button>
+    </div>
+
+    <div class="admin-pane on" data-pane="banners">
+      <div class="admin-config-grid">
+        <span class="full admin-sect">Fixed banner under the navigation</span>
+        <label class="f chk"><input type="checkbox" id="ac_navEnabled"> Show fixed banner</label>
+        <label class="f">Tone<select id="ac_navTone"><option value="pine">Pine (brand)</option><option value="dark">Dark</option></select></label>
+        <label class="f full">Text<input id="ac_navText" placeholder="e.g. Sell your car free — post an ad in 60 seconds"></label>
+        <label class="f full">Link URL (optional)<input id="ac_navUrl" placeholder="https://… (leave blank for no link)"></label>
+
+        <span class="full admin-sect" style="margin-top:8px">Inline banner row — repeats through the results feed</span>
+        <label class="f">Visibility<select id="ac_bEnabled"><option value="yes">Shown</option><option value="no">Hidden</option></select></label>
+        <label class="f">Repeat every N cards<input id="ac_bInterval" type="number" min="3" max="50"></label>
+        <label class="f full">Headline<input id="ac_bTitle"></label>
+        <label class="f full">Body<input id="ac_bText"></label>
+        <label class="f full">Link URL (optional — blank CTA opens the post-an-ad flow)<input id="ac_bUrl"></label>
+        <label class="f">Tone<select id="ac_bTone"><option value="dark">Dark</option><option value="light">Light</option><option value="pine">Pine</option></select></label>
+
+        <span class="full admin-sect" style="margin-top:8px">Embedded sponsored card (occupies a car-ad slot)</span>
+        <label class="f">Mode<select id="ac_sMode"><option value="paid">Third-party paid sponsored items</option><option value="default">Default — advertise Pine It features instead</option><option value="off">Off — hide entirely</option></select></label>
+        <label class="f">Every N cards<input id="ac_sInterval" type="number" min="3" max="50"></label>
+      </div>
+      <div class="modal-actions" style="margin-top:16px">
+        <button type="button" class="btn ghost" id="btnAdResetDefaults">Reset to defaults</button>
+        <button type="button" class="btn ghost" id="btnAdDownload">Download ad-config.json</button>
+        <button type="button" class="btn" id="btnAdApplySave">Apply &amp; save on this device</button>
+      </div>
+      <div class="console-note"><b>Publishing for real:</b> “Download ad-config.json” produces exactly the file served next to <code>index.html</code> — commit or re-upload it and every visitor sees the change. The on-device save is a localStorage override purely for instant demos. Production path (ADR-0007): this console moves to a separate auth-protected URL location backed by the ads DB; “Accounts moderation” here covers posters/lead-requesters on this device only.</div>
+    </div>
+
+    <div class="admin-pane" data-pane="ads">
+      <p class="sub" style="margin-top:12px">Moderate ads stored on this device. Hiding removes them from the public feed without deleting and is reversible.</p>
+      <div class="adm-list" id="admAdsList"></div>
+      <div class="modal-actions"><button type="button" class="btn ghost" id="btnAdmRefreshAds">Refresh list</button></div>
+    </div>
+
+    <div class="admin-pane" data-pane="accounts">
+      <p class="sub" style="margin-top:12px">“Accounts” are the people who interacted on this device (ad posters + lead requesters) — the PoC has no login. Blocking suppresses all their content from the feed.</p>
+      <div class="adm-list" id="admAcctsList"></div>
+      <div class="modal-actions"><button type="button" class="btn ghost" id="btnAdmRefreshAccts">Refresh list</button></div>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="overlayActivity" role="dialog" aria-modal="true" aria-labelledby="actTitle" hidden>
   <div class="modal">
     <button class="ico-btn closeX" data-close aria-label="Close">✕</button>
@@ -464,9 +572,9 @@ body.no-scroll{overflow:hidden}
 <script>
 'use strict';
 /* =========================================================
-   Pine It v0.2.3 PoC — single-file marketplace demo
+   Pine It v0.4.0 PoC — single-file marketplace demo
    Docs: PRD.md · DATA-MODEL.md · PoC-PRODUCTION-READINESS.md
-         adr/0001-0005
+         adr/0001-0007
    ========================================================= */
 
 /* ---------- Source registry (ADR-0002: add a platform = one row) ---------- */
@@ -746,6 +854,90 @@ let myAds = lsGet(LS_ADS, []);
 let myLeads = lsGet(LS_LEADS, []);
 function allListings(){ return myAds.concat(seeds); }
 
+/* ---------- PoC Rev 7: moderation store (mock — ADR-0007) ----------
+   Hides/blocks apply at render time so nothing is destroyed and no backend is needed.
+   Production path: these become server-side flags with audit trails. */
+const LS_MOD='pineit_moderation';
+let modStore=lsGet(LS_MOD,null)||{ hiddenAdIds:[], blockedAccounts:[] };
+if(!Array.isArray(modStore.hiddenAdIds)) modStore.hiddenAdIds=[];
+if(!Array.isArray(modStore.blockedAccounts)) modStore.blockedAccounts=[];
+function saveMod(){ lsSet(LS_MOD,modStore); }
+function acctKey(v){ return String(v||'').trim().toLowerCase(); } /* posters keyed by display name; lead requesters by name|email */
+function posterKey(l){ return (l&&l.account)?('p:'+acctKey(l.account.name)):null; }
+function isAdHidden(id){ return modStore.hiddenAdIds.indexOf(id)!==-1; }
+function visibleListings(){
+  return allListings().filter(function(l){
+    if(isAdHidden(l.id)) return false;
+    const pk=posterKey(l);
+    if(pk && modStore.blockedAccounts.indexOf(pk)!==-1) return false;
+    return true;
+  });
+}
+function leadBlocked(x){ return modStore.blockedAccounts.indexOf('l:'+acctKey(x.name)+'|'+acctKey(x.email))!==-1; }
+
+/* ---------- PoC Rev 7: advertising assets (ADR-0007) ----------
+   Content + visibility are controlled by an EXTERNAL file (docs/ad-config.json) fetched at
+   boot when served over http(s); an identical built-in fallback keeps file:// previews working.
+   An admin-console edit saved on-device overrides everything until published/reset.
+   Placements: fixed banner under the nav · inline banner row every N cards (default 9) ·
+   embedded sponsored card every M cards (default 10), whose mode is paid | default | off. */
+const LS_AD_CFG='pineit_ad_config';
+const ADS_DEFAULTS={ bannerEvery:9, sponsoredEvery:10 };
+const DEFAULT_AD_CONFIG={
+  version:1,
+  navBanner:{ enabled:false, tone:'pine', text:'', url:'' },
+  inlineBanners:[ { enabled:true, interval:ADS_DEFAULTS.bannerEvery, tone:'dark',
+    title:'Selling? Post your car on Pine It free.', text:'No fees, no account wall — live in seconds.',
+    url:'' } ],
+  sponsored:{
+    mode:'default', interval:ADS_DEFAULTS.sponsoredEvery,
+    items:[],   /* third-party paid slots (empty unless supplied externally/admin) */
+    defaultItems:[ /* Pine It's own feature promos — shown when mode='default' (and as fallback) */
+      { tag:'Pine It', glyph:'📌', tone:'pine', title:'Post an ad free in 60 seconds',
+        text:'No fees, no listing wall — your car goes live instantly with a Native badge.',
+        cta:'Post an ad', action:'post' },
+      { tag:'Pine It', glyph:'🔍', tone:'pine', title:'The strongest filter engine on the market',
+        text:'Around forty facets, live per-option counts and postcode radius search cut straight to your exact car.',
+        cta:'Open Filter Options', action:'filters' },
+      { tag:'Pine It', glyph:'🚗', tone:'pine', title:'One search, every car, every platform',
+        text:'Gumtree, Facebook Marketplace, AutoTrader, Cazoo and motors.co.uk — harvested into a single feed.',
+        cta:'Browse everything', action:'browse' }
+    ]
+  },
+  defaults:ADS_DEFAULTS
+};
+let EXT_AD_CONFIG=null; /* what docs/ad-config.json supplied this boot (http/https only) */
+function mergeAdConfig(base,cfg){
+  const out=JSON.parse(JSON.stringify(base));
+  if(!cfg||typeof cfg!=='object') return out;
+  if(cfg.navBanner&&typeof cfg.navBanner==='object') Object.assign(out.navBanner,cfg.navBanner);
+  if(Array.isArray(cfg.inlineBanners)&&cfg.inlineBanners.length){
+    out.inlineBanners=cfg.inlineBanners.filter(function(b){ return b&&typeof b==='object'; });
+  }
+  if(cfg.sponsored&&typeof cfg.sponsored==='object'){
+    const sp=out.sponsored;
+    Object.keys(cfg.sponsored).forEach(function(k){ sp[k]=cfg.sponsored[k]; });
+    if(!Array.isArray(sp.items)) sp.items=[];
+    if(!Array.isArray(sp.defaultItems)||!sp.defaultItems.length) sp.defaultItems=DEFAULT_AD_CONFIG.sponsored.defaultItems;
+    if(['paid','default','off'].indexOf(sp.mode)===-1) sp.mode='default';
+  }
+  if(cfg.defaults&&typeof cfg.defaults==='object') Object.assign(out.defaults,cfg.defaults);
+  out.defaults.bannerEvery=out.defaults.bannerEvery||ADS_DEFAULTS.bannerEvery;
+  out.defaults.sponsoredEvery=out.defaults.sponsoredEvery||ADS_DEFAULTS.sponsoredEvery;
+  return out;
+}
+function adConfOverride(){ const v=lsGet(LS_AD_CFG,null); return (v&&typeof v==='object')?v:null; }
+function effAdConfig(){ return mergeAdConfig(mergeAdConfig(DEFAULT_AD_CONFIG,EXT_AD_CONFIG||{}),adConfOverride()||{}); }
+function loadAdConfig(){
+  if(location.protocol!=='http:'&&location.protocol!=='https:') return; /* file:// → built-in defaults */
+  fetch('ad-config.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; })
+    .then(function(cfg){ if(cfg){ EXT_AD_CONFIG=cfg; renderAll(); } })
+    .catch(function(){ /* keep defaults */ });
+}
+function ivl(n,fallback){ n=parseInt(n,10); return (isFinite(n)&&n>=3)?n:fallback; }
+function cleanUrl(u){ u=String(u||'').trim(); return /^(https?:\/\/|\/)/i.test(u)?u:''; }
+
+
 /* ---------- App state ---------- */
 const MULTI_KEYS=['make','fuel','gearbox','body','colour','source','doors'];
 const state = {
@@ -887,7 +1079,9 @@ function attrMatch(l,f){
 }
 function filteredList(override){
   const qs=state.q||[];
-  return allListings().filter(l=>{
+  /* Rev 7: filter over *visible* listings — moderation hides/blocks apply to counts,
+     facets, feed and results alike, without deleting anything. */
+  return visibleListings().filter(l=>{
     if(qs.length && !qs.every(t=>hay(l).includes(t))) return false;
     return matches(l, override);
   });
@@ -994,6 +1188,43 @@ function openCompetitor(src, url){
   }
 }
 function repTag(l){ return l.realListing ? '<span class="rep-tag">Representative image</span>' : ''; }
+/* ---------- PoC Rev 7: ad slot builders (ADR-0007) ----------
+   Intervals come from ad-config.json / defaults: inline banner row every 9 cards,
+   embedded sponsored card every 10 cards, both capped to fire within real feeds. */
+function renderAdBanner(){
+  const el=$('#adBanner'); if(!el) return;
+  const b=effAdConfig().navBanner||{};
+  const txt=String(b.text||'').trim(), url=cleanUrl(b.url);
+  if(b.enabled===false||!txt){ el.hidden=true; el.innerHTML=''; return; }
+  el.hidden=false;
+  const inner='<span class="ad-tag">Ad</span><span>'+esc(txt)+(url?' <span aria-hidden="true">→</span>':'')+'</span>';
+  el.innerHTML='<div class="ad-navbanner tone-'+(b.tone==='dark'?'dark':'pine')+'">'+
+    (url?'<a href="'+esc(url)+'" target="_blank" rel="noopener sponsored">'+inner+'</a>':inner)+'</div>';
+}
+function bannerRowHtml(b,every){
+  const url=cleanUrl(b.url), light=b.tone==='light';
+  const cta=url
+    ? '<a class="btn small'+(light?'':' abt-dark')+'" href="'+esc(url)+'" target="_blank" rel="noopener sponsored">Learn more</a>'
+    : '<button type="button" class="btn small'+(light?'':' abt-dark')+'" data-ad-action="post">Post an ad free</button>';
+  return '<div class="ad-row"><div class="ad-banner-inner ab-'+(light?'light':(b.tone==='pine'?'pine':'dark'))+'">'+
+    '<div class="ad-grow"><span class="ad-mini">Advertisement · every '+every+' cars</span>'+
+    '<h3>'+esc(b.title||'')+'</h3>'+(b.text?'<p>'+esc(b.text)+'</p>':'')+'</div>'+cta+'</div></div>';
+}
+function sponsoredCardHtml(it,isDefault,every){
+  const pillBg=isDefault?'var(--pine)':(it.tone==='plum'?'#4a2d68':(it.tone==='pine'?'var(--pine)':'#10231b'));
+  const photo='<div class="photo sp-'+esc(it.tone||'pine')+'">'+
+    '<span class="pill sp-pill" style="background:'+pillBg+'"><span class="dot"></span>'+esc(isDefault?(it.tag||'Pine It'):String(it.tag||'Sponsored'))+'</span>'+
+    '<div class="sp-copy"><span class="glyph" aria-hidden="true">'+esc(it.glyph||'📣')+'</span>'+
+      '<span class="big">'+esc(it.title||'')+'</span>'+
+      '<span class="small">'+esc(it.text||'')+'</span></div></div>';
+  const sub=isDefault?'From Pine It — our promise to buyers and sellers':'Third-party advertisement · every '+every+' cars';
+  const cta=(it.url&&!isDefault)
+    ? '<a class="btn small full" href="'+esc(cleanUrl(it.url))+'" target="_blank" rel="noopener sponsored">'+esc(it.cta||'Find out more')+'</a>'
+    : '<button type="button" class="btn small full" data-ad-action="'+esc(it.action||'browse')+'">'+esc(it.cta||'Find out more')+'</button>';
+  return '<article class="card sponsored">'+photo+
+    '<div class="body"><p>'+esc(sub)+'</p>'+cta+'</div></article>';
+}
+
 /* PoC Rev 6: running-state helpers — legacy localStorage ads without attrs.run are
    classified on the fly by the same phrase list, so old saved ads stay correct. */
 function runOf(l){
@@ -1187,16 +1418,47 @@ function emptyHint(){
   return 'The active '+active.join(', ')+' filter'+(active.length>1?'s':'')+' match nothing together. Try removing one.';
 }
 function renderResults(){
-  renderShowcase();
+  renderShowcase(); renderAdBanner();
+  const conf=effAdConfig();
+  /* PoC Rev 7: build interleaved feed — car cards, a full-width ad banner row after every
+     Nth card (default 9) and an embedded sponsored card after every Mth card (default 10).
+     Sponsored mode: paid third-party | default Pine It feature promos | off. */
+  const banners=(conf.inlineBanners||[]).filter(function(b){ return b&&b.enabled!==false&&(b.title||b.text); });
+  const sp=conf.sponsored;
+  const spEvery=ivl(sp.interval,(conf.defaults&&conf.defaults.sponsoredEvery)||ADS_DEFAULTS.sponsoredEvery);
+  let spPool=null, spDef=false;
+  if(sp.mode==='paid'&&Array.isArray(sp.items)&&sp.items.length){ spPool=sp.items.filter(Boolean); }
+  else if(sp.mode!=='off'){
+    spPool=(Array.isArray(sp.defaultItems)&&sp.defaultItems.length?sp.defaultItems:DEFAULT_AD_CONFIG.sponsored.defaultItems);
+    spDef=true; /* paid items empty/absent → honest default promo fallback */
+  }
   const list=filteredList().sort(compare);
   const grid=$('#grid');
+  $('#resultCount').innerHTML='Showing <b>'+list.length+'</b> of <b>'+visibleListings().length+'</b> cars';
+  const ac=$('#applyCount'); if(ac) ac.textContent=String(list.length);
   if(list.length===0){
     grid.innerHTML=''; $('#emptyState').hidden=false; $('#emptyHint').textContent=emptyHint();
-  } else {
-    grid.innerHTML=list.map(card).join(''); $('#emptyState').hidden=true;
+    renderChips(); return;
   }
-  $('#resultCount').innerHTML='Showing <b>'+list.length+'</b> of <b>'+allListings().length+'</b> cars';
-  const ac=$('#applyCount'); if(ac) ac.textContent=String(list.length);
+  let html='', si=0;
+  banners.forEach(function(b){
+    b._every=ivl(b.interval,(conf.defaults&&conf.defaults.bannerEvery)||ADS_DEFAULTS.bannerEvery);
+  });
+  const bannerOrder=banners.slice().sort(function(x,y){ return x._every-y._every; });
+  for(let i=0;i<list.length;i++){
+    html+=card(list[i]);
+    const n=i+1;
+    if(n%spEvery===0){
+      const it=spPool?spPool[si%spPool.length]:null;
+      if(it){ html+=sponsoredCardHtml(it,spDef,spEvery); si++; }
+    }
+    for(let bi=0;bi<bannerOrder.length;bi++){
+      const b=bannerOrder[bi];
+      if(n%b._every===0){ html+=bannerRowHtml(b,b._every); }
+    }
+  }
+  grid.innerHTML=html;
+  $('#emptyState').hidden=true;
   renderChips();
 }
 function renderAll(){ renderFacets(); renderResults(); syncHash(); }
@@ -1277,6 +1539,28 @@ function onDocClick(e){
   if(view){ openDetail(view.dataset.view); return; }
   const del=e.target.closest('[data-del]');
   if(del){ deleteMyAd(del.dataset.del); return; }
+  /* PoC Rev 7: admin-console actions (data-adm) + default-content ad CTAs (data-ad-action). */
+  const adm=e.target.closest('[data-adm]');
+  if(adm){
+    const op=adm.dataset.op, id=adm.dataset.id, key=adm.dataset.acct;
+    if(op==='hide') modToggleAd(id,true);
+    else if(op==='restore') modToggleAd(id,false);
+    else if(op==='del') modDeleteAd(id);
+    else if(op==='acct') modToggleAcct(key);
+    return;
+  }
+  const ada=e.target.closest('[data-ad-action]');
+  if(ada){
+    e.preventDefault();
+    closeAll();
+    const act=ada.dataset.adAction;
+    if(act==='post'){ openPost(); }
+    else if(act==='filters'){ document.body.classList.add('filters-open'); window.scrollTo({top:0,behavior:'smooth'}); }
+    else { resetFilters(); window.scrollTo({top:0,behavior:'smooth'}); }
+    return;
+  }
+  const tab=e.target.closest('.admin-tab');
+  if(tab){ switchAdminTab(tab.dataset.tab); return; }
 }
 function onDocChange(e){
   const cb=e.target.closest('[data-facet]');
@@ -1300,6 +1584,13 @@ function onDocInput(e){
 function wire(){
   $('#btnPost').addEventListener('click',()=>openPost());
   $('#btnActivity').addEventListener('click',()=>{ renderActivity(); openOverlay('overlayActivity'); });
+  /* PoC Rev 7: admin console + its banner-config and moderation controls */
+  $('#btnAdmin').addEventListener('click',openAdmin);
+  $('#btnAdApplySave').addEventListener('click',saveAdConfigLocal);
+  $('#btnAdResetDefaults').addEventListener('click',resetAdConfigLocal);
+  $('#btnAdDownload').addEventListener('click',downloadAdConfig);
+  $('#btnAdmRefreshAds').addEventListener('click',renderAdminAds);
+  $('#btnAdmRefreshAccts').addEventListener('click',renderAdminAccounts);
   $('#btnFilterToggle').addEventListener('click',()=>document.body.classList.toggle('filters-open'));
   $('#btnApplyFilters').addEventListener('click',()=>document.body.classList.remove('filters-open'));
   const pfYearEl=$('#pf_year'); if(pfYearEl){ pfYearEl.min=YEAR_MIN; pfYearEl.max=CURRENT_YEAR; }
@@ -1378,6 +1669,8 @@ function submitPost(e){
   const colour=$('#pf_colour').value, condition=$('#pf_condition').value;
   const postcode=$('#pf_postcode').value.trim().toUpperCase();
   const desc=$('#pf_desc').value.trim();
+  /* Rev 7: optional display name groups posted ads into an "account" for the demo moderation console. */
+  const posterName=$('#pf_name')?$('#pf_name').value.trim().toLowerCase():'';
   let msg='';
   if(!make)msg='Choose a make.';
   else if(!model)msg='Enter the model.';
@@ -1422,6 +1715,7 @@ function submitPost(e){
   const title=year+' '+make+' '+model;
   const l={
     id:'my-'+Date.now(), source:'pine_it_native',
+    account:{ name:posterName },
     title:title,
     description: desc || (make+' '+model+', '+year+'. Listed free on Pine It.'),
     vehicle:{ make, model, year, mileage, fuel, gearbox, body,
@@ -1539,6 +1833,131 @@ function openDetail(id){
   openOverlay('overlayDetail');
 }
 
+/* ---------- PoC Rev 7: admin console (demo-grade, no login — per stakeholder decision; ADR-0007) ---------- */
+function switchAdminTab(name){
+  document.querySelectorAll('#overlayAdmin .admin-tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===name));
+  document.querySelectorAll('#overlayAdmin .admin-pane').forEach(p=>p.classList.toggle('on',p.dataset.pane===name));
+}
+function openAdmin(){ openOverlay('overlayAdmin'); renderAdminBanners(); renderAdminAds(); renderAdminAccounts(); }
+function collectFormConfig(){
+  const cur=effAdConfig();
+  const cfg=JSON.parse(JSON.stringify(cur));
+  cfg.version=cfg.version||1;
+  cfg.navBanner={
+    enabled:$('#ac_navEnabled').checked,
+    tone:$('#ac_navTone').value,
+    text:$('#ac_navText').value.trim(),
+    url:cleanUrl($('#ac_navUrl').value)
+  };
+  const rb=cur.inlineBanners[0]||DEFAULT_AD_CONFIG.inlineBanners[0];
+  cfg.inlineBanners=[Object.assign({},rb,{
+    enabled:$('#ac_bEnabled').value==='yes',
+    interval:ivl($('#ac_bInterval').value,ADS_DEFAULTS.bannerEvery),
+    title:$('#ac_bTitle').value.trim(),
+    text:$('#ac_bText').value.trim(),
+    url:cleanUrl($('#ac_bUrl').value),
+    tone:$('#ac_bTone').value
+  })];
+  cfg.sponsored=Object.assign({},cur.sponsored,{
+    mode:$('#ac_sMode').value,
+    interval:ivl($('#ac_sInterval').value,ADS_DEFAULTS.sponsoredEvery)
+  });
+  return mergeAdConfig(DEFAULT_AD_CONFIG,cfg);
+}
+function renderAdminBanners(){
+  const c=effAdConfig(), b=c.navBanner||{}, rb=c.inlineBanners[0]||DEFAULT_AD_CONFIG.inlineBanners[0], s=c.sponsored;
+  $('#ac_navEnabled').checked=b.enabled!==false;
+  $('#ac_navTone').value=b.tone==='dark'?'dark':'pine';
+  $('#ac_navText').value=b.text||''; $('#ac_navUrl').value=b.url||'';
+  $('#ac_bEnabled').value=rb.enabled===false?'no':'yes';
+  $('#ac_bInterval').value=rb.interval||ADS_DEFAULTS.bannerEvery;
+  $('#ac_bTitle').value=rb.title||''; $('#ac_bText').value=rb.text||''; $('#ac_bUrl').value=rb.url||'';
+  $('#ac_bTone').value=['light','dark','pine'].indexOf(rb.tone)>-1?rb.tone:'dark';
+  $('#ac_sMode').value=['paid','default','off'].indexOf(s.mode)>-1?s.mode:'default';
+  $('#ac_sInterval').value=s.interval||ADS_DEFAULTS.sponsoredEvery;
+}
+/* "Apply & save" writes a localStorage override for instant demos; "Download ad-config.json"
+   produces the exact external file to deploy next to index.html for every visitor (ADR-0007). */
+function saveAdConfigLocal(){ lsSet(LS_AD_CFG,collectFormConfig()); toast('Saved — applied on this device.'); renderAll(); }
+function resetAdConfigLocal(){
+  if(adConfOverride()&&!confirm('Discard the on-device override and revert to defaults/file?')) return;
+  try{ localStorage.removeItem(LS_AD_CFG); }catch(e){}
+  toast('Reverted.'); renderAll(); openAdmin();
+}
+function downloadAdConfig(){
+  const blob=new Blob([JSON.stringify(collectFormConfig(),null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='ad-config.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); },2000);
+}
+function renderAdminAds(){
+  const host=$('#admAdsList'); if(!host) return;
+  if(!myAds.length){ host.innerHTML='<div class="activity-empty">No ads stored on this device yet.</div>'; return; }
+  host.innerHTML=myAds.map(function(a){
+    const hid=isAdHidden(a.id);
+    return '<div class="moderation-item">'+
+      '<span class="status-pill '+(hid?'st-hidden':'st-live')+'">'+(hid?'Hidden':'Live')+'</span>'+
+      '<div class="grow"><b>'+esc(a.title)+'</b><span class="meta">'+fmtCur(a.price.amount)+' · '+
+        (a.account&&a.account.name?('by '+esc(a.account.name)):'no name given')+' · '+timeAgo(a.status.postedAt)+'</span></div>'+
+      '<button type="button" class="btn ghost small" data-adm data-op="'+(hid?'restore':'hide')+'" data-id="'+esc(a.id)+'">'+(hid?'Restore':'Hide')+'</button>'+
+      '<button type="button" class="btn danger small" data-adm data-op="del" data-id="'+esc(a.id)+'">Delete</button>'+
+    '</div>';
+  }).join('');
+}
+/* Accounts = people who interacted on this device (posters by display name; lead requesters
+   by name+email). The PoC has no login — production replaces these keys with real user IDs. */
+function accountsIndex(){
+  const map={};
+  myAds.forEach(function(a){
+    if(a.account&&acctKey(a.account.name)){
+      const k='p:'+acctKey(a.account.name);
+      const e=map[k]=map[k]||{key:k,label:a.account.name,type:'poster',ads:0,leads:0};
+      e.ads++;
+    }
+  });
+  myLeads.forEach(function(x){
+    const k='l:'+acctKey(x.name)+'|'+acctKey(x.email);
+    const e=map[k]=map[k]||{key:k,label:(x.name+(x.email?' · '+x.email:'')),type:'lead requester',ads:0,leads:0};
+    e.leads++;
+  });
+  return Object.keys(map).map(function(k){ return map[k]; });
+}
+function renderAdminAccounts(){
+  const host=$('#admAcctsList'); if(!host) return;
+  const accs=accountsIndex();
+  if(!accs.length){ host.innerHTML='<div class="activity-empty">No posters or lead requesters on this device yet.</div>'; return; }
+  host.innerHTML=accs.map(function(a){
+    const blocked=modStore.blockedAccounts.indexOf(a.key)!==-1;
+    return '<div class="moderation-item">'+
+      '<span class="status-pill '+(blocked?'st-blocked':'st-live')+'">'+(blocked?'Blocked':'Active')+'</span>'+
+      '<div class="grow"><b>'+esc(a.label)+'</b><span class="meta">'+esc(a.type)+
+        (a.ads?' · '+a.ads+' ad'+(a.ads>1?'s':''):'')+(a.leads?' · '+a.leads+' lead'+(a.leads>1?'s':''):'')+
+        (a.type==='poster'?' · blocking hides their ads':' · leads stay listed; blocks target poster content')+'</span></div>'+
+      '<button type="button" class="btn ghost small" data-adm data-op="acct" data-acct="'+esc(a.key)+'">'+(blocked?'Unblock':'Block')+'</button>'+
+    '</div>';
+  }).join('');
+}
+function modToggleAd(id,hide){
+  const i=modStore.hiddenAdIds.indexOf(id);
+  if(hide&&i<0) modStore.hiddenAdIds.push(id);
+  if(!hide&&i>-1) modStore.hiddenAdIds.splice(i,1);
+  saveMod(); renderAll(); renderAdminAds(); updateActivityCount();
+  toast(hide?'Ad hidden from the feed.':'Ad restored to the feed.');
+}
+function modDeleteAd(id){
+  const i=modStore.hiddenAdIds.indexOf(id); if(i>-1) modStore.hiddenAdIds.splice(i,1);
+  myAds=myAds.filter(a=>a.id!==id); lsSet(LS_ADS,myAds);
+  saveMod(); renderActivity(); renderAll(); renderAdminAds(); updateActivityCount();
+  toast('Ad permanently deleted.');
+}
+function modToggleAcct(key){
+  const i=modStore.blockedAccounts.indexOf(key);
+  if(i>-1){ modStore.blockedAccounts.splice(i,1); } else { modStore.blockedAccounts.push(key); }
+  saveMod(); renderAll(); renderAdminAccounts(); renderAdminAds();
+  toast(i>-1?'Account unblocked.':'Account blocked — their ads are hidden.');
+}
+
 /* ---------- My activity ---------- */
 function updateActivityCount(){
   const n=myAds.length+myLeads.length;
@@ -1615,6 +2034,9 @@ function init(){
   if(state.q&&state.q.length) setCollapsedAll(true);
   renderAll();
   updateActivityCount();
+  /* PoC Rev 7: pick up docs/ad-config.json when served over http(s) — renderAll() re-runs
+     inside loadAdConfig() once the external file arrives; file:// keeps built-in defaults. */
+  loadAdConfig();
 }
 if(document.readyState==='loading'){
   document.addEventListener('DOMContentLoaded',init);

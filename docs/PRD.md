@@ -1,9 +1,9 @@
-# Product Requirements — Pine It v0.3.0 (PoC Revision 6)
+# Product Requirements — Pine It v0.4.0 (PoC Revision 7)
 
 > **One sentence:** Pine It is a UK car marketplace where one search shows every car from every platform — with the strongest filter engine on the market, dirt-cheap zero-fee selling, and attribution-first harvesting of Gumtree, Facebook Marketplace, AutoTrader, Cazoo and motors.co.uk.
 
 - **Type:** PoC product requirements & acceptance criteria
-- **Version:** v0.3.0 (PoC Revision 6) — 2026-08-26
+- **Version:** v0.4.0 (PoC Revision 7) — 2026-08-27
 - **Build target:** single-file static web app (`docs/index.html`) — see ADR-0001
 
 ---
@@ -98,6 +98,12 @@ The PoC must ship *all* of the following — this is the acceptance bar:
 23. The form includes a **Running status** selector (*Auto-detect · Running · Spares & Repairs · Non Starter*). An explicit **Spares & Repairs**/**Non Starter** selection always defines the ad's state regardless of wording; auto-detect applies the phrase-list classifier to title+description as a backstop only.
 24. **Running status** is a normal multi-select facet under a dedicated **"Condition & running"** section — options *Running · Spares & Repairs · Non Starter* over the classified state (`attrs.run`; precedence Non Starter > Spares & Repairs > Running; `For parts` ⇒ repairs) — reporting **honest per-option membership counts** (~682 / 14 / 9 of the 705 seeded cars). The feed's default selection is **{Running}**, so scrap/spares listings stay out of the hero feed until a buyer opts in; unchecking all three running options shows everything. The **Condition** facet moved into this section too, and `For parts` is deliberately **not** a standalone option there (every For-parts car is a Spares & Repairs car — one option governs; sellers still record For-parts when posting). Chips, counts, collapse-all and hash-sharing behave like any other facet, and the default {Running} selection renders no chip/badge so it never reads as an active filter.
 25. Cards and the detail view badge non-running states (**Spares & Repairs** amber / **Non Starter** red) and the detail view renders the listing's full `attrs` spec sheet.
+
+**PoC Revision 7 additions** (per `.clinerules/pia-v1-core-rules.md`, decisions in **ADR-0007**):
+
+26. Advertising is **non-obstructive and externally controlled**: a fixed **banner under the nav**, a full-width **ad banner row after every 9th car-ad card**, and an **embedded sponsored card in a car-ad slot after every 10th card**. All content and visibility come from the external **`docs/ad-config.json`** (fetched over http(s); identical built-in defaults when opened from `file://`); every slot is labelled (`Ad` / `Advertisement` / `Sponsored`) and paid outbound links carry `rel="noopener sponsored"`.
+27. Sponsored slots support a **three-way mode**: `paid` (third-party items) · `default` (replaced with Pine It's own feature promos — post-an-ad, filter engine, one-feed-every-platform) · `off` (hidden entirely). A `paid` mode with an empty paid list renders the honest default promos, never a blank slot.
+28. A **demo admin console** (header **Admin** button, no login) provides: banner & sponsored management with an on-device override plus a **Download ad-config.json** publish flow; **ads moderation** (hide/restore/delete posted ads — hides are reversible render-time filters reflected in feed, facets and counts); **accounts moderation** (block/unblock posters identified by optional display name, and lead requesters by name+email — the PoC has no login, so an "account" is a device-local interaction identity). Production path: a separate auth-protected console URL backed by the ads DB (see `PoC-PRODUCTION-READINESS.md`).
 
 ## 6. Demo script (~3 minutes) — the hero moment
 

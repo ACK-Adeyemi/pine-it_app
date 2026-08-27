@@ -1,0 +1,83 @@
+{
+  "_comment": "PoC Revision 7 — Pine It advertising asset config (ADR-0007). Served next to index.html; the app falls back to its built-in defaults when this file is missing (file:// preview). An admin-console edit saved on-device temporarily overrides it until published.",
+  "version": 1,
+
+  "navBanner": {
+    "enabled": true,
+    "tone": "pine",
+    "text": "Pine It now surfaces cars from Gumtree, Facebook Marketplace, AutoTrader, Cazoo and motors.co.uk — one search, every car.",
+    "url": ""
+  },
+
+  "inlineBanners": [
+    {
+      "enabled": true,
+      "interval": 9,
+      "tone": "dark",
+      "title": "Selling? Post your car on Pine It free — no listing fee.",
+      "text": "One advert, zero cost, live in seconds. No account wall, ever.",
+      "url": "",
+      "_note": "An empty url makes the CTA drive the in-app post-an-ad flow."
+    }
+  ],
+
+  "sponsored": {
+    "mode": "paid",
+    "interval": 10,
+    "items": [
+      {
+        "tag": "Sponsored",
+        "glyph": "🛠️",
+        "tone": "plum",
+        "title": "Garage cover from £12/mo",
+        "text": "Sample third-party placement — swap this copy out via the admin console or this JSON file.",
+        "cta": "Find out more",
+        "url": "https://example.com/partner-offer"
+      },
+      {
+        "tag": "Sponsored",
+        "glyph": "🔋",
+        "tone": "dark",
+        "title": "EV home charger installed £799",
+        "text": "Second sample paid slot — demonstrates the rotation between consecutive slots.",
+        "cta": "See offer",
+        "url": "https://example.com/ev-charger"
+      }
+    ],
+    "defaultItems": [
+      {
+        "tag": "Pine It",
+        "glyph": "📌",
+        "tone": "pine",
+        "title": "Post an ad free in 60 seconds",
+        "text": "No fees, no listing wall — your car goes live instantly with a Native badge.",
+        "cta": "Post an ad",
+        "action": "post"
+      },
+      {
+        "tag": "Pine It",
+        "glyph": "🔍",
+        "tone": "pine",
+        "title": "The strongest filter engine on the market",
+        "text": "Around forty facets, live per-option counts and postcode radius search cut straight to your exact car.",
+        "cta": "Open Filter Options",
+        "action": "filters"
+      },
+      {
+        "tag": "Pine It",
+        "glyph": "🚗",
+        "tone": "pine",
+        "title": "One search, every car, every platform",
+        "text": "Gumtree, Facebook Marketplace, AutoTrader, Cazoo and motors.co.uk — harvested into a single feed.",
+        "cta": "Browse everything",
+        "action": "browse"
+      }
+    ]
+  },
+
+  "defaults": {
+    "_comment": "Fallback intervals (cards) when a slot omits its own.",
+    "bannerEvery": 9,
+    "sponsoredEvery": 10
+  }
+}

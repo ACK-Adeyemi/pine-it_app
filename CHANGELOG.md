@@ -3,6 +3,21 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] — 2026-08-27
+
+### Added
+
+- **PoC Revision 7** (per `.clinerules/pia-v1-core-rules.md`, decisions in **ADR-0007**):
+  - **Advertising banners, non-obstructive and externally controlled** — a new external asset config **`docs/ad-config.json`** drives all ad content and visibility (identical built-in defaults keep `file://` previews working; fetched with `cache:'no-store'` when served over http(s)). Placements: a **fixed banner under the nav** (`enabled:false` hides it instantly), a full-width **ad banner row every 9 car-ad cards**, and an **embedded sponsored card occupying a car-ad slot every 10 cards** — every slot labelled (`Ad` / `Advertisement` / `Sponsored`), paid links `rel="noopener sponsored"`.
+  - **Sponsored content 3-way switch** — `sponsored.mode`: **paid** (third-party items) · **default** (the slot is replaced with Pine It's own feature promos — post-an-ad, the filter engine, one-feed-every-platform — per stakeholder request) · **off** (hidden entirely). A `paid` mode with an empty paid list falls back to the honest default promos rather than a blank slot.
+  - **Demo admin console** (header **Admin** button, no login — stakeholder decision): **Banners & sponsored** tab (edit nav banner, banner row, sponsored mode/interval; *Apply & save* on-device override, *Download ad-config.json* to publish for all visitors, *Reset to defaults*); **Ads moderation** tab (hide/restore/delete posted ads — hiding is a reversible render-time filter, so counts and facets stay honest); **Accounts moderation** tab (accounts = posters via an optional post-form display name + lead requesters via name/email; block/unblock suppresses their content).
+  - Moderation state persists to `localStorage['pineit_moderation']` (`hiddenAdIds`, `blockedAccounts`) alongside the existing mock stores; the filter engine now reads a `visibleListings()` view so hidden/blocked content disappears from the feed, facets, counts and results alike without deleting anything.
+
+### Changed
+
+- Post-an-ad form gains an optional **display name** field (used only to group posted ads into demo "accounts" for moderation).
+- Version strings bumped to **v0.4.0 · PoC Revision 7**; docs updated (PRD acceptance criteria §Rev 7, README feature set, DATA-MODEL storage keys, PRODUCTION-READINESS rows incl. the recommended production shape: a separate auth-protected console URL location + real ad server/CMS + DB-backed moderation).
+
 ## [0.3.2] — 2026-08-26
 
 ### Fixed

@@ -23,6 +23,8 @@
 | 11 | **Hosting / delivery** | GitHub Pages from `/docs`, zero build static | REAL | Real CDN (Cloudflare/Azure CDN), app aliases, https |
 | 12 | **Analytics** | none (console logging only) | NONE | Privacy-first web analytics (no cross-site) |
 | 13 | **State sharing (URL hash)** | Hash encodes filters; restored on load; tests live | REAL | Same URL pattern maintained |
+| 14 | **Advertising assets** (nav banner, inline banner rows, sponsored embeds) | All content/visibility from external **`docs/ad-config.json`** + built-in defaults; deterministic placement (banner every 9 cards, sponsored every 10); 3-way sponsored mode (paid / default Pine It promos / off); slots labelled; demo CTA links route in-app | MOCK (sample paid items point at `example.com`) | Real ad server / ad-manager integration (e.g. GAM/AdSense or direct-sold inventory), ad ops workflow, frequency capping, viewability + privacy-compliant measurement |
+| 15 | **Admin console & moderation** | Header **Admin** button (no login); banners tab with **Download ad-config.json** publish flow; ads moderation (hide/restore/delete posted ads); accounts moderation (posters by optional display name + lead requesters by name/email; block suppresses content at render time) → `localStorage['pineit_moderation']` | MOCK (device-local, demo-grade) | **Separate auth-protected console URL location** (e.g. `admin.<domain>` or `/console`) with roles, server-side moderation flags + audit trails, real account/user IDs, and DB-backed queues — never shipped inside the marketplace bundle |
 
 ---
 
@@ -40,7 +42,8 @@
 3. Affiliate/lead model: confirm affiliate programmes OR validate **broker** unit economics for `brokered` sources
 4. Real postcode geocoding (UK Ordinance Survey / postcodes.io)
 5. Image upload pipeline + moderation
+6. Advertising stack: pick ad server vs direct sales, move banner/sponsored config to a CMS-served JSON (or DB), and build the **separate auth-protected console URL** replacing the PoC admin overlay (ADR-0007)
 
 ---
 
-*Companion docs:* `PRD.md` · `DATA-MODEL.md` · `docs/adr/0001–0005`
+*Companion docs:* `PRD.md` · `DATA-MODEL.md` · `docs/adr/0001–0007`

@@ -87,6 +87,7 @@ Remaining value: later general-marketplace categories declare their *own* schema
 - **PoC Rev 5 — real examples:** `REAL_EXAMPLES` pins one snapshot per competitor (motors.co.uk, AutoTrader, Cazoo, Gumtree, Facebook Marketplace) with real factual listing data + a real deep link (`realListing:true`), bringing the deterministic set to **705**. Images are **representative only** (own illustration, labelled "Representative image") — never a competitor's photo (ADR-0005).
 - **PoC Rev 6 — posting parity:** the post-an-ad form's optional "Specification & running details" section maps every filterable `attrs` field onto the listing; blanks are filled by the same deterministic derivation (`makeAttrs(rng,body,fuel,year,overrides)`), so native posts are indistinguishable structurally from seeded rows. The owner-selected or auto-detected `attrs.run` feeds the "Condition & running" facets.
 - User-generated rows (posted ads, lead intents) merge with seed data at render time; write to `localStorage` (`pineit_my_ads`, `pineit_leads`).
+- **PoC Rev 7:** two more device stores join the same JSON contract — `pineit_ad_config` (admin's on-device override of `docs/ad-config.json`, the external advertising asset config per ADR-0007) and `pineit_moderation` (`{hiddenAdIds:[], blockedAccounts:[]}`; render-time hide/block — nothing is destroyed). Posted ads may carry `account:{name}` (optional display name) so the demo moderation console can group them into "accounts".
 
 ## 6. Import/export contract (migration seam)
 

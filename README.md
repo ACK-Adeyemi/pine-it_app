@@ -1,4 +1,4 @@
-# Pine It — v0.2.4 PoC (Revision 5)
+# Pine It — v0.4.0 PoC (Revision 7)
 
 > **Pine It** — *"sticky notes for the car market."* A marketplace with the strongest filter engine on the market: one search, every car, every platform.
 
@@ -9,7 +9,7 @@ Pine It is a UK-focused, cars-first marketplace exploring a better alternative t
 - **Cheap, low-barrier selling** — post an ad in under a minute, no listing fees (unlike AutoTrader).
 - **One feed, every platform** — harvests car ads from other platforms (Gumtree, Facebook Marketplace, AutoTrader, motors.co.uk) and displays them mixed into a single searchable feed with clear source attribution, affiliate-ready outbound links, and a lead/broker path where sellers aren't directly reachable.
 
-This repository contains the **v0.3.0 proof-of-concept (PoC Revision 6)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
+This repository contains the **v0.4.0 proof-of-concept (PoC Revision 7)**: a single-file static web app (`docs/index.html`) written in vanilla HTML/CSS/JS, designed for zero-build, zero-cost deployment on GitHub Pages. The long-term product is a Flutter app (see `docs/PRD.md` and the ADRs); this PoC validates the concept first.
 
 ---
 
@@ -42,6 +42,8 @@ https://<your-user>.github.io/<your-repo>/
 - **Search your filters** — a fixed **search box** in the **Filter Options** pane finds any filter by name, highlight-matches the text, hides everything unrelated and force-opens matching groups; an **✕** inside the field restores the full pane instantly.
 - **Live examples from our competitors** — a showcase strip above the results with **one real snapshot per platform** (motors.co.uk, AutoTrader, Cazoo, Gumtree, Facebook Marketplace): real car facts, a real deep link, and per-source **mobile app routing** (installed app else browser). Labelled **snapshot** + **Representative image** (ADR-0005 — we never store or hotlink a competitor's photo).
 - **Cazoo as a source** — now a first-class platform in the filter UI (badge, colour, facet, CTA), documented as a trading name of Motors.co.uk Limited.
+- **Advertising, non-obstructive and externally controlled (Rev 7)** — a **fixed banner under the nav**, an **ad banner row every 9 car-ad cards** and an **embedded sponsored card every 10 car ads**, all driven by the external **`docs/ad-config.json`** (built-in defaults cover `file://` previews). Sponsored slots have a **three-way mode** — paid third-party items, **default Pine It feature promos**, or fully off — and every slot is honestly labelled. See **ADR-0007**.
+- **Demo admin console (Rev 7)** — the header **Admin** button (no login, per PoC scope) manages banners & sponsored content (with a **Download ad-config.json** publish flow), **ads moderation** (hide/restore/delete posted ads) and **accounts moderation** (block/unblock the posters & lead requesters on this device).
 
 ## Run locally
 
@@ -85,6 +87,7 @@ pine-it_app/
 ├── CHANGELOG.md             ← version history
 ├── docs/                    ← GitHub Pages content root
 │   ├── index.html           ← THE PoC (single-file HTML/CSS/JS app)
+│   ├── ad-config.json       ← external ad/banner/sponsored config (ADR-0007)
 │   ├── PRD.md               ← product requirements + acceptance criteria
 │   ├── DATA-MODEL.md        ← provider-agnostic schema, source registry, facets
 │   ├── PoC-PRODUCTION-READINESS.md  ← real vs mock integration inventory
@@ -94,7 +97,8 @@ pine-it_app/
 │       ├── 0002-facet-filter-engine-and-source-registry.md
 │       ├── 0003-provider-agnostic-data-strategy.md
 │       ├── 0004-filter-controls-and-units.md
-│       └── 0005-real-example-showcase-and-representative-images.md
+│       ├── 0005-real-example-showcase-and-representative-images.md
+│       └── 0007-advertising-and-management-console.md
 ├── .clinerules/             ← agent governance (not published)
 ```
 
@@ -109,4 +113,4 @@ pine-it_app/
 
 ## Status
 
-**v0.2.4 (PoC · Revision 5)** — see [`CHANGELOG.md`](CHANGELOG.md). Real-example deep links are verified live single-ad pages for motors.co.uk, AutoTrader, Gumtree **and Cazoo** (`cars-for-sale/79613297`, owner-supplied URL + figures); Facebook Marketplace links to its live area with an on-card login-gate explanation.
+**v0.4.0 (PoC · Revision 7)** — see [`CHANGELOG.md`](CHANGELOG.md). Revision 7 adds externally-configured advertising (fixed nav banner, banner rows every 9 cards, sponsored embeds every 10 with paid/default/off modes) plus a demo admin console for banners, ad moderation and account moderation (ADR-0007). Real-example deep links remain verified live single-ad pages for motors.co.uk, AutoTrader, Gumtree **and Cazoo** (`cars-for-sale/79613297`, owner-supplied URL + figures); Facebook Marketplace links to its live area with an on-card login-gate explanation.
