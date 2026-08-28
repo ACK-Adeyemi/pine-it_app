@@ -10,4 +10,4 @@ Thumbs.db
 .env
 
 # Agent-local governance (not part of the published repo)
-.clinerules/
+# .clinerules/
